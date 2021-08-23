@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as yup from "yup";
 
 const initialFormValues = {
   first_name: "",
@@ -9,6 +10,7 @@ const initialFormValues = {
   password: "",
   auth_key: null,
 };
+
 const initialFormErrors = {
   first_name: "",
   last_name: "",
@@ -18,12 +20,35 @@ const initialFormErrors = {
   auth_key: "",
 };
 
+const FormSchema = yup.object().shape({
+  first_name: yup.string().trim().required("First name is required"),
+  last_name: yup.string().trim().required("Last name is required"),
+  email: yup
+    .string()
+    .trim()
+    .email("Must be a valid email address")
+    .required("Email is a required field"),
+  role: yup.string().oneOf("client", "instructor").required(),
+  username: yup.string().trim().required("Username is required"),
+  password: yup.string().trim().required("Password is required"),
+  auth_key: yup.number(),
+});
+
 const Register = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
+  const validate = (name, value) => {
+    yup
+      .reach(FormSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    validate(name, value);
     setFormValues({ ...formValues, [name]: value });
   };
 
