@@ -4,6 +4,7 @@ const CreateClass = () => {
 	const [name, setName] = useState("");
 	const [time, setTime] = useState("");
 	const [classDescription, setClassDescription] = useState("");
+
 	const [date, setDate] = useState("");
 	const [duration, setDuration] = useState("");
 	const [typeClass, setTypeClass] = useState("");
