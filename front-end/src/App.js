@@ -1,12 +1,7 @@
 import "./App.css";
-import Register from "./components/forms/Register";
 
 function App() {
-  return (
-    <div className="AppContainer">
-      <Register />
-    </div>
-  );
+  return <div className="AppContainer"></div>;
 }
 
 export default App;

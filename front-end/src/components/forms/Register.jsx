@@ -4,9 +4,10 @@ const initialFormValues = {
   first_name: "",
   last_name: "",
   email: "",
-  role: "user",
+  role: "client",
   username: "",
   password: "",
+  auth_key: null,
 };
 const initialFormErrors = {
   first_name: "",
@@ -14,6 +15,7 @@ const initialFormErrors = {
   email: "",
   username: "",
   password: "",
+  auth_key: "",
 };
 
 const Register = () => {
@@ -35,6 +37,7 @@ const Register = () => {
             type="text"
             name="first_name"
             value={formValues["first_name"]}
+            placeholder="First Name"
             onChange={handleChange}
           />
         </label>
@@ -45,6 +48,7 @@ const Register = () => {
             type="text"
             name="last_name"
             value={formValues["last_name"]}
+            placeholder="Last Name"
             onChange={handleChange}
           />
         </label>
@@ -55,12 +59,13 @@ const Register = () => {
             type="email"
             name="email"
             value={formValues.email}
+            placeholder="Email Address"
             onChange={handleChange}
           />
         </label>
         <div className="error">{formErrors.email}</div>
         <select name="role" value={formValues.role} onChange={handleChange}>
-          <option name="user">User</option>
+          <option name="client">Client</option>
           <option name="instructor">Instructor</option>
         </select>
         <div className="error">{formErrors.role}</div>
@@ -70,6 +75,7 @@ const Register = () => {
             type="text"
             name="username"
             value={formValues.username}
+            placeholder="Username"
             onChange={handleChange}
           />
           <div className="error">{formErrors.username}</div>
@@ -80,9 +86,20 @@ const Register = () => {
             type="password"
             name="password"
             value={formValues.password}
+            placeholder="Password"
             onChange={handleChange}
           />
         </label>
+        <label>
+          Authentication Key
+          <input
+            type="number"
+            name="auth_key"
+            value={formValues["auto_key"]}
+            placeholder="Authentication Key"
+          />
+        </label>
+
         <div className="error">{formErrors.password}</div>
         <button>Submit</button>
       </form>
