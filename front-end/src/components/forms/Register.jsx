@@ -8,7 +8,7 @@ const initialFormValues = {
   role: "client",
   username: "",
   password: "",
-  auth_key: null,
+  auth_key: "",
 };
 
 const initialFormErrors = {
@@ -28,7 +28,7 @@ const FormSchema = yup.object().shape({
     .trim()
     .email("Must be a valid email address")
     .required("Email is a required field"),
-  role: yup.string().oneOf("client", "instructor").required(),
+  role: yup.string().required(),
   username: yup.string().trim().required("Username is required"),
   password: yup.string().trim().required("Password is required"),
   auth_key: yup.number(),
@@ -115,17 +115,18 @@ const Register = () => {
             onChange={handleChange}
           />
         </label>
+        <div className="error">{formErrors.password}</div>
         <label>
           Authentication Key
           <input
-            type="number"
+            type="text"
             name="auth_key"
-            value={formValues["auto_key"]}
+            value={formValues["auth_key"]}
             placeholder="Authentication Key"
+            onChange={handleChange}
           />
         </label>
-
-        <div className="error">{formErrors.password}</div>
+        <div className="error">{formErrors["auth_key"]}</div>
         <button>Submit</button>
       </form>
     </div>
