@@ -8,9 +8,17 @@ const initialFormValues = {
   username: "",
   password: "",
 };
+const initialFormErrors = {
+  first_name: "",
+  last_name: "",
+  email: "",
+  username: "",
+  password: "",
+};
 
 const Register = () => {
-  const [formValues, setFormValues] = setState({});
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +38,7 @@ const Register = () => {
             onChange={handleChange}
           />
         </label>
+        <div className="error">{formErrors["first_name"]}</div>
         <label>
           Last Name
           <input
@@ -39,6 +48,7 @@ const Register = () => {
             onChange={handleChange}
           />
         </label>
+        <div className="error">{formErrors["last_name"]}</div>
         <label>
           Email
           <input
@@ -48,10 +58,12 @@ const Register = () => {
             onChange={handleChange}
           />
         </label>
+        <div className="error">{formErrors.email}</div>
         <select name="role" value={formValues.role} onChange={handleChange}>
           <option name="user">User</option>
           <option name="instructor">Instructor</option>
         </select>
+        <div className="error">{formErrors.role}</div>
         <label>
           Username
           <input
@@ -60,6 +72,7 @@ const Register = () => {
             value={formValues.username}
             onChange={handleChange}
           />
+          <div className="error">{formErrors.username}</div>
         </label>
         <label>
           Password
@@ -70,6 +83,7 @@ const Register = () => {
             onChange={handleChange}
           />
         </label>
+        <div className="error">{formErrors.password}</div>
         <button>Submit</button>
       </form>
     </div>
