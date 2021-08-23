@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/actions";
 
 const initialFormValues = {
   first_name: "",
@@ -34,15 +36,18 @@ const FormSchema = yup.object().shape({
   auth_key: yup.number(),
 });
 
-const Register = () => {
+const Register = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(true);
 
   const validate = (name, value) => {
     yup
       .reach(FormSchema, name)
       .validate(value)
-      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .then(() => {
+        setFormErrors({ ...formErrors, [name]: "" });
+      })
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
@@ -50,12 +55,22 @@ const Register = () => {
     const { name, value } = e.target;
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
+
+    FormSchema.isValid(formValues).then((res) => {
+      if (res) setDisabled(false);
+      if (!res) setDisabled(true);
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.registerUser(formValues);
   };
 
   return (
     <div>
       <h1>Register Here</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           First Name
           <input
@@ -127,10 +142,12 @@ const Register = () => {
           />
         </label>
         <div className="error">{formErrors["auth_key"]}</div>
-        <button>Submit</button>
+        <button type="submit" disabled={disabled}>
+          Submit
+        </button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default connect(null, { registerUser })(Register);
