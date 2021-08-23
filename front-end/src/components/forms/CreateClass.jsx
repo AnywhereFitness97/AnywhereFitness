@@ -4,12 +4,12 @@ const CreateClass = () => {
 	const [name, setName] = useState("");
 	const [time, setTime] = useState("");
 	const [classDescription, setClassDescription] = useState("");
-	const [date, setDate] = useState("");
-	const [duration, setDuration] = useState("");
-	const [typeClass, setTypeClass] = useState("");
-	const [intensityLevel, setIntensityLevel] = useState("");
-	const [location, setLocation] = useState("");
-	const [numberOfAttendees, setNumberOfAttendees] = useState("");
+	// const [date, setDate] = useState("");
+	// const [duration, setDuration] = useState("");
+	// const [typeClass, setTypeClass] = useState("");
+	// const [intensityLevel, setIntensityLevel] = useState("");
+	// const [location, setLocation] = useState("");
+	// const [numberOfAttendees, setNumberOfAttendees] = useState("");
 
 	return (
 		<div>
@@ -51,3 +51,4 @@ const CreateClass = () => {
 		</div>
 	);
 };
+export default CreateClass;
