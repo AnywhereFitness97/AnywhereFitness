@@ -35,37 +35,46 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login Form</h1>
-      <form>
-        <label>
-          Username
+    <section className="py-5">
+      <div className="container">
+        <h1 className="text-center">Login</h1>
+        <form className="d-flex flex-column align-items-center">
           <input
+            className={`mb-4 ${
+              formErrors.username ? "border-danger border-1" : ""
+            }`}
             type="text"
             name="username"
             value={formValues.username}
             onChange={handleChange}
+            placeholder="Username"
           />
-        </label>
-        <div className="error">{formErrors.username}</div>
-        <label>
-          Password
+          <div className="error username-error">{formErrors.username}</div>
+
           <input
+            className={`mb-4 ${
+              formErrors.password ? "border-danger border-1" : ""
+            }`}
             type="text"
             name="password"
             value={formValues.password}
             onChange={handleChange}
+            placeholder="Password"
           />
-        </label>
-        <div className="error">{formErrors.password}</div>
-        <Link to="/client">
-          <button>Client Dashboard</button>
-        </Link>
-        <Link to="/instructor">
-          <button>Instructor Dashboard</button>
-        </Link>
-      </form>
-    </div>
+          <div className="error password-error">{formErrors.password}</div>
+          <div>
+            <Link to="/client">
+              <button className="btn btn-success">Client Dashboard</button>
+            </Link>
+            <Link to="/instructor">
+              <button className="btn btn-primary ms-3">
+                Instructor Dashboard
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
+    </section>
   );
 };
 
