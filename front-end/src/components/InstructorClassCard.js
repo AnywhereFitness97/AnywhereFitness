@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 function InstructorClassCard(props) {
   const { card } = props;
-  console.log(card);
   return (
     <div className="my-2 border">
       <div className="d-flex">
