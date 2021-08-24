@@ -13,30 +13,40 @@ const CreateClass = () => {
   const [location, setLocation] = useState("");
   const [numberOfAttendees, setNumberOfAttendees] = useState("");
 
+  const [formData, setFormData] = useState({});
+
+  const onChange = (e) => {
+    let valueToUse = e.target.value;
+    if (e.target.type === "checkbox") {
+      valueToUse = e.target.checked;
+    }
+    setFormData({ ...formData, [e.target.name]: valueToUse });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <div>
       <h1>Create Class</h1>
       <div className="classForm">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <label>Class Name</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              name="class-name"
+              value={formData.class_name}
+              onChange={onChange}
+              name="class_name"
             />
           </div>
           <div>
             <label>Class Description</label>
             <input
               type="text"
-              value={classDescription}
-              onChange={(e) => {
-                setClassDescription(e.target.value);
-              }}
+              value={formData.description}
+              onChange={onChange}
               name="description"
             />
           </div>
@@ -47,11 +57,9 @@ const CreateClass = () => {
               <select
                 id="type-dropdown"
                 type="dropdown"
-                value={classType}
-                onChange={(e) => {
-                  setClassType(e.target.value);
-                }}
-                name="class-type"
+                value={formData.class_type}
+                onChange={onChange}
+                name="class_type"
               >
                 <option>--Choose Class Type--</option>
                 <option>Aerobics</option>
@@ -76,77 +84,56 @@ const CreateClass = () => {
             <input
               type="checkbox"
               name="sunday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.sunday}
             />{" "}
             Sun
             <br />
             <input
               type="checkbox"
               name="monday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.monday}
             />{" "}
             Mon
             <br />
             <input
               type="checkbox"
               name="tuesday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.tuesday}
             />{" "}
             Tue
             <br />
             <input
               type="checkbox"
               name="wednesday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.wednesday}
             />{" "}
             Wed
             <br />
             <input
               type="checkbox"
               name="thursday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.thursday}
             />{" "}
             Thurs
             <br />
             <input
               type="checkbox"
               name="friday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              onChange={onChange}
+              checked={formData.friday}
             />{" "}
             Fri
             <br />
             <input
               type="checkbox"
-              name="sunday"
-              value={days}
-              onChange={(e) => {
-                setDays(e.target.value);
-              }}
-              checked={(e) => e.value.checked}
+              name="saturday"
+              onChange={onChange}
+              checked={formData.saturday}
             />{" "}
             Sat
             <br />
@@ -155,10 +142,8 @@ const CreateClass = () => {
             <label>Class Time</label>
             <input
               type="time"
-              value={time}
-              onChange={(e) => {
-                setTime(e.target.value);
-              }}
+              //   value={time}
+              onChange={onChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -175,10 +160,8 @@ const CreateClass = () => {
               <select
                 id="duration-dropdown"
                 type="dropdown"
-                value={duration}
-                onChange={(e) => {
-                  setDuration(e.target.value);
-                }}
+                value={formData.duration}
+                onChange={onChange}
                 name="duration"
               >
                 <option>--Duration--</option>
@@ -198,10 +181,8 @@ const CreateClass = () => {
               Intensity Level:
               <select
                 type="dropdown"
-                value={intensityLevel}
-                onChange={(e) => {
-                  setIntensityLevel(e.target.value);
-                }}
+                value={formData.intensity}
+                onChange={onChange}
                 name="intensity"
               >
                 <option>--Intensity--</option>
@@ -216,10 +197,8 @@ const CreateClass = () => {
             <label>Location</label>
             <input
               type="text"
-              value={location}
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
+              value={formData.location}
+              onChange={onChange}
               name="location"
             />
           </div>
@@ -229,14 +208,13 @@ const CreateClass = () => {
               Class Size:
               <input
                 type="number"
-                value={numberOfAttendees}
-                onChange={(e) => {
-                  setNumberOfAttendees(e.target.value);
-                }}
-                name="class-size"
+                value={formData.class_size}
+                onChange={onChange}
+                name="class_size"
               />
             </label>
           </div>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
