@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Header(props) {
   const pathname = useLocation().pathname;
-  console.log(pathname);
 
   return (
     <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-sm">
