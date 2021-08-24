@@ -1,55 +1,73 @@
 import React, { useState } from "react";
-import * as yup from 'yup'
-	import { boolean } from 'yup/lib/locale'
+import * as yup from "yup";
 
 const CreateClass = () => {
   const [name, setName] = useState("");
   const [classDescription, setClassDescription] = useState("");
   const [classType, setClassType] = useState("");
-
   const [days, setDays] = useState("");
   const [time, setTime] = useState("");
   const [duration, setDuration] = useState("");
-
   const [intensityLevel, setIntensityLevel] = useState("");
   const [location, setLocation] = useState("");
   const [numberOfAttendees, setNumberOfAttendees] = useState("");
-
   const [formData, setFormData] = useState({});
-  
-  export default yup.object().shape({
-		class_name: yup
-			.string()
-			.required("Class Name is required")
-			.min(7, "name must be at least 7 characters"),
-		description: yup
-			.string()
-			.max(200, 'Shorten your message to 200 chars'),
-		class_type: yup
-			.string()
-			.oneOf(['Aerobics', 'Aquatic Fitness', 'CrossFit', 'Dance', 'Jazzercise', 'Kickboxing', 'Personal Training', 'Pilates', 'Spinning', 'Step Aerobics', 'Yoga', 'Zumba', 'Other'], 'class_type is required'),
-		
-		sunday: yup.boolean(),
-		monday: yup.boolean(),
-		tuesday: yup.boolean(),
-		wednesday: yup.boolean(),
-		thursday: yup.boolean(),
-		friday: yup.boolean(),
-		saturday: yup.boolean(),
-	
-		duration: yup
-			.string()
-			.oneOf(['30 Minutes', '45 Minutes', '60 Minutes', '75 Minutes', '90 Minutes', '105 Minutes', '120 Minutes']'duration is required'),
-		intensity: yup
-			.string()
-			.oneOf(['Low', 'Medium', 'High', 'Extreme']'intensity is required'),
-		location: yup
-			.string()
-			.max(50, 'Shorten your message to 50 chars'),
-		class_size: yup
-			.number(),
-			
-	})
+
+  const formSchema = yup.object().shape({
+    class_name: yup
+      .string()
+      .required("Class Name is required")
+      .min(7, "name must be at least 7 characters"),
+    description: yup.string().max(200, "Shorten your message to 200 chars"),
+    class_type: yup
+      .string()
+      .oneOf(
+        [
+          "Aerobics",
+          "Aquatic Fitness",
+          "CrossFit",
+          "Dance",
+          "Jazzercise",
+          "Kickboxing",
+          "Personal Training",
+          "Pilates",
+          "Spinning",
+          "Step Aerobics",
+          "Yoga",
+          "Zumba",
+          "Other",
+        ],
+        "class_type is required"
+      ),
+
+    sunday: yup.boolean(),
+    monday: yup.boolean(),
+    tuesday: yup.boolean(),
+    wednesday: yup.boolean(),
+    thursday: yup.boolean(),
+    friday: yup.boolean(),
+    saturday: yup.boolean(),
+
+    duration: yup
+      .string()
+      .oneOf(
+        [
+          "30 Minutes",
+          "45 Minutes",
+          "60 Minutes",
+          "75 Minutes",
+          "90 Minutes",
+          "105 Minutes",
+          "120 Minutes",
+        ],
+        "duration is required"
+      ),
+    intensity: yup
+      .string()
+      .oneOf(["Low", "Medium", "High", "Extreme"], "intensity is required"),
+    location: yup.string().max(50, "Shorten your message to 50 chars"),
+    class_size: yup.number(),
+  });
 
   const onChange = (e) => {
     let valueToUse = e.target.value;
@@ -63,6 +81,7 @@ const CreateClass = () => {
     e.preventDefault();
     console.log(formData);
   };
+
   return (
     <div>
       <h1>Create Class</h1>
