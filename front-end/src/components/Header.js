@@ -6,7 +6,7 @@ function Header(props) {
   const pathname = useLocation().pathname;
 
   return (
-    <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-sm">
+    <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-md">
       <div className="container navbar-container">
         <a className="navbar-brand">Anywhere Fitness</a>
 
@@ -31,7 +31,7 @@ function Header(props) {
             {pathname === "/register" && (
               <li className="nav-item m-auto">
                 <Link to="/" className="text-decoration-none">
-                  <a className="nav-link">Already Registered? Login.</a>
+                  <a className="nav-link">Already Registered? Login</a>
                 </Link>
               </li>
             )}
@@ -45,18 +45,25 @@ function Header(props) {
                 </li>
                 <li className="nav-item m-auto">
                   <Link to="/instructor/add" className="text-decoration-none">
-                    <a className="nav-link">Add Class</a>
+                    <a className="nav-link">Create Class</a>
                   </Link>
                 </li>
               </>
             )}
 
             {pathname.includes("/client") && (
-              <li className="nav-item m-auto">
-                <Link to="/client" className="text-decoration-none">
-                  <a className="nav-link">Available Classes</a>
-                </Link>
-              </li>
+              <>
+                <li className="nav-item m-auto">
+                  <Link to="/client/upcoming" className="text-decoration-none">
+                    <a className="nav-link">Upcoming Classes</a>
+                  </Link>
+                </li>
+                <li className="nav-item m-auto">
+                  <Link to="/client" className="text-decoration-none">
+                    <a className="nav-link">Available Classes</a>
+                  </Link>
+                </li>
+              </>
             )}
 
             {pathname !== "/" && pathname !== "/register" && (
