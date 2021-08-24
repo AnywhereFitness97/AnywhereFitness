@@ -37,6 +37,16 @@
   }
 }
 
-.heightBig {
-  height: 4000px;
+.username-error {
+  color: red;
+  position: absolute;
+  font-size: 10px;
+  transform: translate(-40px, 29px);
+}
+
+.password-error {
+  color: red;
+  position: absolute;
+  font-size: 10px;
+  transform: translate(-40px, 83px);
 }
