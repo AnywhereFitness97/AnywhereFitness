@@ -45,7 +45,10 @@ const Login = () => {
         </label>
         <div className="error">{formErrors.password}</div>
         <Link to="/client">
-          <button>Submit</button>
+          <button>Client Dashboard</button>
+        </Link>
+        <Link to="/instructor">
+          <button>Instructor Dashboard</button>
         </Link>
       </form>
     </div>

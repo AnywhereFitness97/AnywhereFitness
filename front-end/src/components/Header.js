@@ -37,7 +37,7 @@ function Header(props) {
               </li>
             )}
 
-            {pathname === "/client" && (
+            {pathname !== "/" && pathname !== "/register" && (
               <li className="nav-item m-auto">
                 <Link to="/" className="text-decoration-none">
                   <a className="nav-link">Logout</a>
