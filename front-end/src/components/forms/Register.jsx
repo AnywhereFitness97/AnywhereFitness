@@ -60,6 +60,7 @@ const Register = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
   };
