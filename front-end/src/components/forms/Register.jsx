@@ -81,7 +81,7 @@ const Register = (props) => {
       <div className="container d-flex ">
         <form
           onSubmit={handleSubmit}
-          className="d-flex flex-column align-items-sm-start align-items-center m-auto register-form"
+          className=" ps-lg-5 d-flex flex-column align-items-sm-start align-items-center m-auto register-form"
         >
           <h1 className="text-center">Register Here</h1>
 

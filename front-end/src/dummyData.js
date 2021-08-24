@@ -9,6 +9,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 6,
     max_class_size: 15,
+    id: 1,
   },
   {
     class_name: "B Class",
@@ -20,6 +21,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 6,
     max_class_size: 15,
+    id: 2,
   },
   {
     class_name: "C Class",
@@ -31,6 +33,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 6,
     max_class_size: 15,
+    id: 3,
   },
   {
     class_name: "D Class",
@@ -42,6 +45,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 6,
     max_class_size: 15,
+    id: 4,
   },
   {
     class_name: "E Class",
@@ -53,6 +57,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 4,
     max_class_size: 15,
+    id: 5,
   },
   {
     class_name: "F Class",
@@ -64,6 +69,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 7,
     max_class_size: 15,
+    id: 6,
   },
   {
     class_name: "G Class",
@@ -75,6 +81,7 @@ const dummyData = [
     class_location: "Garage",
     number_of_registered_attendees: 6,
     max_class_size: 15,
+    id: 7,
   },
 ];
 
