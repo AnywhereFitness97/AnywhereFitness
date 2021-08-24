@@ -26,6 +26,7 @@ const CreateClass = () => {
 							onChange={(e) => {
 								setName(e.target.value);
 							}}
+							name="class-name"
 						/>
 					</div>
 					<div>
@@ -36,6 +37,7 @@ const CreateClass = () => {
 							onChange={(e) => {
 								setClassDescription(e.target.value);
 							}}
+							name="description"
 						/>
 					</div>
 					<div>
@@ -47,7 +49,7 @@ const CreateClass = () => {
 							onChange={(e) => {
 								setClassType(e.target.value);
 							}}
-                            name='type' 
+                            name='class-type' 
                         >
                             <option>
                                 --Choose Class Type--
@@ -69,7 +71,7 @@ const CreateClass = () => {
                             </option>
 							<option>
                                 Kickboxing
-                            </option>							
+                            </option>			
 							<option>
                                 Personal Training
                             </option>
@@ -182,11 +184,11 @@ const CreateClass = () => {
 							  inputProps={{
 								step: 300, // 5 min
 							  }}
+							name="time"
 						/>
 					</div>
 					<div>
 					<label> Class Duration:
-                       
 						<select
                             id='duration-dropdown'
 							type="dropdown"
@@ -194,7 +196,7 @@ const CreateClass = () => {
 							onChange={(e) => {
 								setDuration(e.target.value);
 							}}
-                            name='type' 
+                            name='duration' 
                         >
                             <option>
                                 --Duration--
@@ -226,13 +228,12 @@ const CreateClass = () => {
 					<div>
 					<label> Intensity Level:
                         <select
-                            id='intensity-dropdown'
 							type="dropdown"
                             value={intensityLevel}
 							onChange={(e) => {
 								setIntensityLevel(e.target.value);
 							}}
-                            name='type' 
+                            name='intensity' 
                         >
                             <option>
                                 --Intensity--
@@ -260,17 +261,18 @@ const CreateClass = () => {
 							onChange={(e) => {
 								setLocation(e.target.value);
 							}}
+							name='location'
 						/>
 					</div>
 					<div>
 					<label> Class Size:
                         <input
-                            id='class-size-dropdown'
 							type="number"
                             value={numberOfAttendees}
 							onChange={(e) => {
 								setNumberOfAttendees(e.target.value);
 							}}
+							name="class-size"
 						/>
 					</label>
 					</div>
