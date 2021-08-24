@@ -94,6 +94,10 @@
   cursor: pointer;
 }
 
+.inst-card-img-width {
+  width: 200px;
+}
+
 @media only screen and (max-width: 1200px) {
   .card-available-wrap {
     width: 25%;

@@ -13,14 +13,14 @@ const initialFormErrors = {
 };
 
 const FormSchema = yup.object().shape({
-  class_name: yup.required(),
-  class_type: yup.required(),
-  class_time: yup.required(),
-  class_date: yup.required(),
-  class_duration: yup.required(),
-  class_intensity_level: yup.required(),
-  class_location: yup.required(),
-  max_class_size: yup.required(),
+  class_name: yup.string().required(),
+  class_type: yup.string().required(),
+  class_time: yup.string().required(),
+  class_date: yup.string().required(),
+  class_duration: yup.string().required(),
+  class_intensity_level: yup.string().required(),
+  class_location: yup.string().required(),
+  max_class_size: yup.string().required(),
 });
 
 const UpdateForm = (props) => {

@@ -1,10 +1,19 @@
 import React from "react";
+import dummyData from "../dummyData";
+import InstructorClassCard from "./InstructorClassCard";
 
 function Instructor(props) {
+  console.log(dummyData);
   return (
-    <div>
-      <h1>Instructor</h1>
-    </div>
+    <section className="p-5">
+      <div className="container">
+        <div>
+          {dummyData.map((card) => (
+            <InstructorClassCard card={card} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
