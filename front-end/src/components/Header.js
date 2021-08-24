@@ -37,11 +37,18 @@ function Header(props) {
             )}
 
             {pathname.includes("/instructor") && (
-              <li className="nav-item m-auto">
-                <Link to="/instructor/add" className="text-decoration-none">
-                  <a className="nav-link">Add Class</a>
-                </Link>
-              </li>
+              <>
+                <li className="nav-item m-auto">
+                  <Link to="/instructor" className="text-decoration-none">
+                    <a className="nav-link">Your Classes</a>
+                  </Link>
+                </li>
+                <li className="nav-item m-auto">
+                  <Link to="/instructor/add" className="text-decoration-none">
+                    <a className="nav-link">Add Class</a>
+                  </Link>
+                </li>
+              </>
             )}
 
             {pathname.includes("/client") && (

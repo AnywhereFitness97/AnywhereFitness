@@ -6,7 +6,7 @@ import Client from "./components/Client";
 import Instructor from "./components/Instructor";
 import CreateClass from "./components/forms/CreateClass";
 import AvailableClassFocus from "./components/AvailableClassFocus";
-//
+import UpdateForm from "./components/forms/UpdateForm";
 import { Route, Switch } from "react-router-dom";
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
         <Route exact path="/client" component={Client} />
         <Route exact path="/client/:id" component={AvailableClassFocus} />
         <Route exact path="/instructor" component={Instructor} />
+        <Route exact path="/instructor/:id" component={UpdateForm} />
         <Route path="/instructor/add" component={CreateClass} />
       </Switch>
     </div>
