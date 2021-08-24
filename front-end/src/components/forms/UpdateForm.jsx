@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as yup from "yup";
 
 const initialFormErrors = {
   class_name: "",
@@ -11,12 +12,32 @@ const initialFormErrors = {
   max_class_size: "",
 };
 
+const FormSchema = yup.object().shape({
+  class_name: yup.required(),
+  class_type: yup.required(),
+  class_time: yup.required(),
+  class_date: yup.required(),
+  class_duration: yup.required(),
+  class_intensity_level: yup.required(),
+  class_location: yup.required(),
+  max_class_size: yup.required(),
+});
+
 const UpdateForm = (props) => {
   const [updateFormValues, setUpdateFormValues] = useState({});
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
+  const validate = (name, value) => {
+    yup
+      .reach(FormSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    validate(name, value);
     setUpdateFormValues({ ...updateFormValues, [name]: value });
   };
 
