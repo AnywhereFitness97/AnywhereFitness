@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
 const CreateClass = () => {
-	const [name, setName] = useState("");
-	const [classDescription, setClassDescription] = useState("");
-	const [classType, setClassType] = useState("");
+  const [name, setName] = useState("");
+  const [classDescription, setClassDescription] = useState("");
+  const [classType, setClassType] = useState("");
 
-	const [days, setDays] = useState("");
-	const [time, setTime] = useState("");
-	const [duration, setDuration] = useState("");
+  const [days, setDays] = useState("");
+  const [time, setTime] = useState("");
+  const [duration, setDuration] = useState("");
 
-	const [intensityLevel, setIntensityLevel] = useState("");
-	const [location, setLocation] = useState("");
-	const [numberOfAttendees, setNumberOfAttendees] = useState("");
+  const [intensityLevel, setIntensityLevel] = useState("");
+  const [location, setLocation] = useState("");
+  const [numberOfAttendees, setNumberOfAttendees] = useState("");
+
 
 	import * as yup from 'yup'
 	import { boolean } from 'yup/lib/locale'
@@ -322,6 +323,7 @@ const CreateClass = () => {
 			</div>
 		</div>
 	);
+
 };
 
 export default CreateClass;

@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Header(props) {
   const pathname = useLocation().pathname;
-  console.log(pathname);
 
   return (
     <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-sm">
@@ -37,10 +36,18 @@ function Header(props) {
               </li>
             )}
 
-            {pathname === "/client" && (
+            {pathname !== "/" && pathname !== "/register" && (
               <li className="nav-item m-auto">
                 <Link to="/" className="text-decoration-none">
                   <a className="nav-link">Logout</a>
+                </Link>
+              </li>
+            )}
+
+            {pathname.includes("/instructor") && (
+              <li className="nav-item m-auto">
+                <Link to="/instructor/add" className="text-decoration-none">
+                  <a className="nav-link">Add Class</a>
                 </Link>
               </li>
             )}
