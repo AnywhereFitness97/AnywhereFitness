@@ -36,8 +36,6 @@
     transform: rotate(360deg);
   }
 }
-<<<<<<< Updated upstream
-=======
 
 .username-error {
   color: red;
@@ -96,6 +94,10 @@
   cursor: pointer;
 }
 
+.inst-card-img-width {
+  width: 200px;
+}
+
 @media only screen and (max-width: 1200px) {
   .card-available-wrap {
     width: 25%;
@@ -119,4 +121,3 @@
     width: 100%;
   }
 }
->>>>>>> Stashed changes
