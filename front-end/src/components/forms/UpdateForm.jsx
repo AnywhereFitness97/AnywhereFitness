@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as yup from "yup";
+import dummyData from "../../dummyData";
 
 const initialFormErrors = {
   class_name: "",
@@ -24,7 +25,10 @@ const FormSchema = yup.object().shape({
 });
 
 const UpdateForm = (props) => {
-  const [updateFormValues, setUpdateFormValues] = useState({});
+  const id = props.match.params.id;
+  const initialFormValues = dummyData.find((card) => card.id == id);
+
+  const [updateFormValues, setUpdateFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
   const validate = (name, value) => {
