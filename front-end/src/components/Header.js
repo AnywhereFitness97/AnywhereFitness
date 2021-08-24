@@ -44,6 +44,14 @@ function Header(props) {
                 </Link>
               </li>
             )}
+
+            {pathname.includes("/instructor") && (
+              <li className="nav-item m-auto">
+                <Link to="/instructor/add" className="text-decoration-none">
+                  <a className="nav-link">Add Class</a>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
