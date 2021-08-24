@@ -1,4 +1,4 @@
-const classListArray = [
+const dummyData = [
   {
     class_name: "A Class",
     class_type: "Kickboxing",
@@ -77,3 +77,5 @@ const classListArray = [
     max_class_size: 15,
   },
 ];
+
+export default dummyData;
