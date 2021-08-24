@@ -36,18 +36,26 @@ function Header(props) {
               </li>
             )}
 
-            {pathname !== "/" && pathname !== "/register" && (
-              <li className="nav-item m-auto">
-                <Link to="/" className="text-decoration-none">
-                  <a className="nav-link">Logout</a>
-                </Link>
-              </li>
-            )}
-
             {pathname.includes("/instructor") && (
               <li className="nav-item m-auto">
                 <Link to="/instructor/add" className="text-decoration-none">
                   <a className="nav-link">Add Class</a>
+                </Link>
+              </li>
+            )}
+
+            {pathname.includes("/client") && (
+              <li className="nav-item m-auto">
+                <Link to="/client" className="text-decoration-none">
+                  <a className="nav-link">Available Classes</a>
+                </Link>
+              </li>
+            )}
+
+            {pathname !== "/" && pathname !== "/register" && (
+              <li className="nav-item m-auto">
+                <Link to="/" className="text-decoration-none">
+                  <a className="nav-link">Logout</a>
                 </Link>
               </li>
             )}
