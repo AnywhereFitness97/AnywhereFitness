@@ -36,3 +36,87 @@
     transform: rotate(360deg);
   }
 }
+<<<<<<< Updated upstream
+=======
+
+.username-error {
+  color: red;
+  position: absolute;
+  font-size: 10px;
+  transform: translate(-40px, 29px);
+}
+
+.password-error {
+  color: red;
+  position: absolute;
+  font-size: 10px;
+  transform: translate(-40px, 83px);
+}
+
+.register-logo {
+  width: 60%;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-form input,
+.register-form select {
+  width: 250px;
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.register-error {
+  color: red;
+  font-size: 10px;
+  transform: translateY(-15px);
+}
+
+.card-available-wrap {
+  width: 20%;
+}
+
+.card-available-img-wrap {
+  aspect-ratio: 0.9;
+  overflow: hidden;
+}
+.card-available-img {
+  width: 100%;
+}
+
+.card-available {
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.card-available:hover {
+  background-color: rgb(243, 243, 243);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+  .card-available-wrap {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .card-available-wrap {
+    width: 33.333%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .card-available-wrap {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .card-available-wrap {
+    width: 100%;
+  }
+}
+>>>>>>> Stashed changes
