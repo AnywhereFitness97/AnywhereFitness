@@ -50,3 +50,24 @@
   font-size: 10px;
   transform: translate(-40px, 83px);
 }
+
+.register-logo {
+  width: 70%;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-form input,
+.register-form select {
+  width: 250px;
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.register-error {
+  color: red;
+  font-size: 10px;
+  transform: translateY(-15px);
+}

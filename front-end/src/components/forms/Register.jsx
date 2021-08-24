@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/actions";
+import Logo from "../../assets/fitness_logo.svg";
+import { Link } from "react-router-dom";
 
 const initialFormValues = {
   first_name: "",
@@ -33,7 +35,7 @@ const FormSchema = yup.object().shape({
   role: yup.string().required(),
   username: yup.string().trim().required("Username is required"),
   password: yup.string().trim().required("Password is required"),
-  // auth_key: yup.number(), //This should be optional. If I leave this uncommented, the form requires this field to enable the submit button.
+  auth_key: yup.string(),
 });
 
 const Register = (props) => {
@@ -67,89 +69,107 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(props);
+    console.log(formValues);
     props.registerUser(formValues);
+    if (formValues.role === "client") props.history.push("/client");
+    if (formValues.role === "Instructor") props.history.push("/instructor");
   };
 
   return (
-    <div>
-      <h1>Register Here</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name
-          <input
-            type="text"
-            name="first_name"
-            value={formValues["first_name"]}
-            placeholder="First Name"
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["first_name"]}</div>
-        <label>
-          Last Name
-          <input
-            type="text"
-            name="last_name"
-            value={formValues["last_name"]}
-            placeholder="Last Name"
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["last_name"]}</div>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={formValues.email}
-            placeholder="Email Address"
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors.email}</div>
-        <select name="role" value={formValues.role} onChange={handleChange}>
-          <option name="client">Client</option>
-          <option name="instructor">Instructor</option>
-        </select>
-        <div className="error">{formErrors.role}</div>
-        <label>
-          Username
-          <input
-            type="text"
-            name="username"
-            value={formValues.username}
-            placeholder="Username"
-            onChange={handleChange}
-          />
-          <div className="error">{formErrors.username}</div>
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={formValues.password}
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors.password}</div>
-        <label>
-          Authentication Key
-          <input
-            type="text"
-            name="auth_key"
-            value={formValues["auth_key"]}
-            placeholder="Authentication Key"
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["auth_key"]}</div>
-        <button type="submit" disabled={disabled}>
-          Submit
-        </button>
-      </form>
-    </div>
+    <section className="py-5">
+      <h1 className="text-center">Register Here</h1>
+      <div className="container d-flex ">
+        <form
+          onSubmit={handleSubmit}
+          className="d-flex flex-column align-items-sm-start align-items-center m-auto register-form"
+        >
+          <label className="d-flex flex-column">
+            First Name
+            <input
+              type="text"
+              name="first_name"
+              value={formValues["first_name"]}
+              placeholder="First Name"
+              onChange={handleChange}
+            />
+          </label>
+          <div className="error register-error">{formErrors["first_name"]}</div>
+          <label className="d-flex flex-column">
+            Last Name
+            <input
+              type="text"
+              name="last_name"
+              value={formValues["last_name"]}
+              placeholder="Last Name"
+              onChange={handleChange}
+            />
+          </label>
+          <div className="error register-error">{formErrors["last_name"]}</div>
+          <label className="d-flex flex-column">
+            Email
+            <input
+              type="email"
+              name="email"
+              value={formValues.email}
+              placeholder="Email Address"
+              onChange={handleChange}
+            />
+          </label>
+          <div className="error register-error">{formErrors.email}</div>
+          <label className="d-flex flex-column">
+            {" "}
+            Role
+            <select name="role" value={formValues.role} onChange={handleChange}>
+              <option name="client">Client</option>
+              <option name="instructor">Instructor</option>
+            </select>
+            <div className="error register-error">{formErrors.role}</div>
+          </label>
+          <label className="d-flex flex-column">
+            Username
+            <input
+              type="text"
+              name="username"
+              value={formValues.username}
+              placeholder="Username"
+              onChange={handleChange}
+            />
+            <div className="error register-error">{formErrors.username}</div>
+          </label>
+          <label className="d-flex flex-column">
+            Password
+            <input
+              type="password"
+              name="password"
+              value={formValues.password}
+              placeholder="Password"
+              onChange={handleChange}
+            />
+          </label>
+          <div className="error register-error">{formErrors.password}</div>
+          <label className="d-flex flex-column">
+            Authentication Key
+            <input
+              type="text"
+              name="auth_key"
+              value={formValues["auth_key"]}
+              placeholder="Authentication Key"
+              onChange={handleChange}
+            />
+          </label>
+          <div className="error register-error">{formErrors["auth_key"]}</div>
+          <button
+            type="submit"
+            disabled={disabled}
+            className="btn btn-primary "
+          >
+            Submit
+          </button>
+        </form>
+        <img src={Logo} className="register-logo d-sm-block d-none" />
+      </div>
+    </section>
   );
 };
 
