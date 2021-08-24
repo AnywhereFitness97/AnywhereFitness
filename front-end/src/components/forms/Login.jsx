@@ -1,12 +1,10 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button, Paper, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import * as yup from "yup";
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
+
 const initialValues = {
   username: "",
   password: "",
@@ -19,8 +17,7 @@ const FormSchema = yup.object().shape({
   username: yup.string().required("this field is required"),
   password: yup.string().required("this field is required"),
 });
->>>>>>> b1b169e46cec7266d5ffbebf1954a54fce8b86a2
-=======
+
 // import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 // import * as yup from "yup";
@@ -107,8 +104,7 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button, Paper, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
->>>>>>> Stashed changes
+
 
 const Login = () => {
   // Initial Values
@@ -117,7 +113,6 @@ const Login = () => {
     password: "",
     role: "",
   };
-<<<<<<< HEAD
 
   const initialErrors = {
     username: "",
@@ -126,23 +121,12 @@ const Login = () => {
   };
   ////////////////
 
-=======
-
-  const initialErrors = {
-    username: "",
-    password: "",
-    role: "",
-  };
-  ////////////////
-
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
   ///// State
   const [user, setUser] = useState(initialLogin);
   const [errors, setErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(true);
 
   /////////////
-<<<<<<< HEAD
   
 
 
@@ -194,15 +178,11 @@ const Login = () => {
     width: 500,
     margin: "5% auto",
 	backgroundColor: "#e0e0e0"
-<<<<<<< Updated upstream
-=======
-=======
-  const validate = (name, value) => {
-=======
+  }
+
 
   ///// Error Setting
   const setLoginErrors = (name, value) => {
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
     yup
       .reach(schema, name)
       .validate(value)
@@ -223,13 +203,11 @@ const Login = () => {
   };
   ////////////
 
-<<<<<<< HEAD
   const handleChange = (e) => {
     const { name, value } = e.target;
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
->>>>>>> b1b169e46cec7266d5ffbebf1954a54fce8b86a2
-=======
+  }
   //// Validation
   const schema = yup.object().shape({
     username: yup
@@ -255,8 +233,7 @@ const Login = () => {
     width: 500,
     margin: "5% auto",
     backgroundColor: "#e0e0e0",
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
->>>>>>> Stashed changes
+
   };
 
   const style = { margin: "5%", padding: "2%" };
@@ -277,11 +254,7 @@ const Login = () => {
             justifyContent="flex-start"
             alignItems="center"
           >
-<<<<<<< HEAD
-            <h1 style={{color:"#3f51b5"}}>Login</h1>
-=======
             <h1 style={{ color: "#3f51b5" }}>Login</h1>
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
 
             <input
               name="username"
@@ -290,10 +263,6 @@ const Login = () => {
               value={user.username}
               placeholder="Username"
               style={style}
-<<<<<<< HEAD
-		
-=======
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
             />
 
             <input
@@ -325,21 +294,6 @@ const Login = () => {
               Sign In
             </Button>
           </Grid>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-          
-          <Link to="/client">
-          <button>Client Dashboard</button>
-          </Link>
-          <Link to="/instructor">
-     <button>Instructor Dashboard</button>
-          </Link>
-
-
-
-=======
           <Link to="/client">
             <Button style={style} variant="contained" color="primary">
               Client-Dash
@@ -350,12 +304,12 @@ const Login = () => {
               Instructor-Dash
             </Button>
           </Link>
->>>>>>> 123e7ce5012c73c34c036239f3a692a51b4dcf30
->>>>>>> Stashed changes
         </form>
       </Paper>
     </div>
   );
 };
+
+
 
 export default Login;
