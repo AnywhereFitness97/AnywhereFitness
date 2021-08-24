@@ -7,8 +7,7 @@ const CreateClass = () => {
 
 	const [days, setDays] = useState("");
 	const [time, setTime] = useState("");
-	const [durationHours, setDurationHours] = useState("");
-	const [durationMinutes, setDurationMinutes] = useState("");
+	const [duration, setDuration] = useState("");
 
 	const [intensityLevel, setIntensityLevel] = useState("");
 	const [location, setLocation] = useState("");
@@ -187,76 +186,39 @@ const CreateClass = () => {
 					</div>
 					<div>
 					<label> Class Duration:
-                        <select
-                            id='hours-dropdown'
-							type="dropdown"
-                            value={durationHours}
-							onChange={(e) => {
-								setDurationHours(e.target.value);
-							}}
-                            name='type' 
-                        >
-                            <option>
-                                --Hours--
-                            </option>
-							<option>
-                                0 Hours
-                            </option>
-                            <option>
-                                1 Hour
-                            </option>
-							<option>
-                                2 Hours
-                            </option>
-						</select>
-						
+                       
 						<select
-                            id='minutes-dropdown'
+                            id='duration-dropdown'
 							type="dropdown"
-                            value={durationMinutes}
+                            value={duration}
 							onChange={(e) => {
-								setDurationMinutes(e.target.value);
+								setDuration(e.target.value);
 							}}
                             name='type' 
                         >
                             <option>
-                                --Minutes--
+                                --Duration--
 							</option>
-							<option>
-                                0 Minutes
-                            </option>
-							<option>
-								5 Minutes
-							</option>
-							<option>
-                                10 Minutes
-                            </option>
-							<option>
-                                15 Minutes
-                            </option>
-							<option>
-								20 Minutes
-							</option>
-							<option>
-                             	25 Minutes
-                            </option>
 							<option>
                                 30 Minutes
                             </option>
 							<option>
-                                35 Minutes
+								45 Minutes
+							</option>
+							<option>
+                                60 Minutes
                             </option>
 							<option>
-                                40 Minutes
+                                75 Minutes
                             </option>
 							<option>
-                                45 Minutes
+								90 Minutes
+							</option>
+							<option>
+                             	105 Minutes
                             </option>
 							<option>
-                                50 Minutes
-                            </option>
-							<option>
-                                55 Minutes
+                                120 Minutes
                             </option>
 						</select>
 					</label>
@@ -302,31 +264,14 @@ const CreateClass = () => {
 					</div>
 					<div>
 					<label> Class Size:
-                        <select
+                        <input
                             id='class-size-dropdown'
-							type="dropdown"
+							type="number"
                             value={numberOfAttendees}
 							onChange={(e) => {
 								setNumberOfAttendees(e.target.value);
 							}}
-                            name='attendees' 
-                        >
-                            <option>
-                                --Class Size--
-                            </option>
-							<option>
-                                1 - 5 Clients
-                            </option>
-                            <option>
-                                5-10 Clients
-                            </option>
-							<option>
-                                10-20 Clients
-                            </option>
-							<option>
-								20-30 Clients
-							</option>
-						</select>
+						/>
 					</label>
 					</div>
 				</form>
