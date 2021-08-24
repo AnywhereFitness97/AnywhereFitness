@@ -8,7 +8,7 @@ const initialState = {
   },
   username: "",
   password: "",
-  auth_key: "",
+  auth_key: undefined,
 };
 
 export const reducer = (state = initialState, action) => {

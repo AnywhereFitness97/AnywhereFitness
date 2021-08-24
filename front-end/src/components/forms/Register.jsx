@@ -33,13 +33,20 @@ const FormSchema = yup.object().shape({
   role: yup.string().required(),
   username: yup.string().trim().required("Username is required"),
   password: yup.string().trim().required("Password is required"),
-  auth_key: yup.number(),
+  // auth_key: yup.number(), //This should be optional. If I leave this uncommented, the form requires this field to enable the submit button.
 });
 
 const Register = (props) => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    FormSchema.isValid(formValues).then((res) => {
+      if (res) setDisabled(false);
+      if (!res) setDisabled(true);
+    });
+  }, [formValues]);
 
   const validate = (name, value) => {
     yup
@@ -55,11 +62,6 @@ const Register = (props) => {
     const { name, value } = e.target;
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
-
-    FormSchema.isValid(formValues).then((res) => {
-      if (res) setDisabled(false);
-      if (!res) setDisabled(true);
-    });
   };
 
   const handleSubmit = (e) => {
