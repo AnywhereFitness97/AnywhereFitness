@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Header(props) {
   const pathname = useLocation().pathname;

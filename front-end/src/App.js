@@ -2,7 +2,7 @@ import "./App.css";
 import Register from "./components/forms/Register";
 import Login from "./components/forms/Login";
 import Header from "./components/Header";
-import "bootstrap/dist/css/bootstrap.min.css";
+// 
 import { Route, Switch } from "react-router-dom";
 
 function App() {
