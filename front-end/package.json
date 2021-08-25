@@ -22,10 +22,10 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "node react-scripts build",
+    "test": "node react-scripts test",
+    "eject": "node react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
