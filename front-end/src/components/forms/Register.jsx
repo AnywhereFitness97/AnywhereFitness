@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { connect } from "react-redux";
+import { registerUser } from "../../actions/actions";
 import Logo from "../../assets/fitness_logo.svg";
 import { Link } from "react-router-dom";
 
@@ -8,9 +9,10 @@ const initialFormValues = {
   first_name: "",
   last_name: "",
   email: "",
-  role: "user",
+  role: "client",
   username: "",
   password: "",
+  auth_key: "",
 };
 
 const initialFormErrors = {
@@ -172,4 +174,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default connect(null, { registerUser })(Register);
