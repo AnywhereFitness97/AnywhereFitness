@@ -131,15 +131,10 @@ const Login = () => {
 
   //// Validation
   const schema = yup.object().shape({
-    username: yup
-      .string()
-      .required("Please enter username")
-      .min(3, "Username must be at least 3 characters"),
-    password: yup
-      .string()
-      .required("Please enter password")
-      .min(3, "Password must be at least 3 characters"),
-    role: yup.string().required("Please select a role"),
+    username: yup.string().required("Please enter username"),
+    // .min(3, "Username must be at least 3 characters"),
+    password: yup.string().required("Please enter password"),
+    // .min(3, "Password must be at least 3 characters"),
   });
 
   useEffect(() => {
@@ -193,18 +188,6 @@ const Login = () => {
               placeholder="Password"
               style={style}
             />
-
-            <select
-              style={style}
-              value={user.role}
-              name="role"
-              onChange={handleChange}
-            >
-              <option value="">Select Role</option>
-              <option value="2">Instructor</option>
-              <option value="3">User</option>
-            </select>
-
             <Button
               style={style}
               variant="contained"
