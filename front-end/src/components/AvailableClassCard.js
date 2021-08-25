@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+
 export const AvailableClassCard = (props) => {
   const { card } = props;
   const { push } = useHistory();
@@ -8,6 +9,9 @@ export const AvailableClassCard = (props) => {
     push(`/client/focus/${card.id}`);
   };
   return (
+    <>
+    
+    
     <div className="card-available-wrap">
       <div className="m-3 card-available" onClick={handleClick}>
         <div className="card-available-img-wrap">
@@ -24,7 +28,13 @@ export const AvailableClassCard = (props) => {
         <p>{card["class_time"]}</p>
         <p>{card["class_duration"]}</p>
       </div>
+      <div>
+      
     </div>
+      
+    </div>
+    
+    </>
   );
 };
 

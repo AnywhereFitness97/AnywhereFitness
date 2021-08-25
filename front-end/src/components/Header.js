@@ -6,6 +6,7 @@ function Header(props) {
   const pathname = useLocation().pathname;
 
   return (
+    
     <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-md">
       <div className="container navbar-container">
         <a className="navbar-brand">Anywhere Fitness</a>
@@ -77,6 +78,8 @@ function Header(props) {
         </div>
       </div>
     </nav>
+    
+    
   );
 }
 

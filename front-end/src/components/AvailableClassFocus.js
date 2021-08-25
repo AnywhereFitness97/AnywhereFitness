@@ -2,11 +2,13 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import dummyData from "../dummyData";
 
+
 function AvailableClassFocus(props) {
   const { id } = useParams();
   const card = dummyData.find((card) => card.id === parseInt(id));
 
   return (
+ 
     <div>
       <div>
         <img
@@ -23,6 +25,7 @@ function AvailableClassFocus(props) {
       <p>Cost: </p>
       <button className="btn btn-primary">Register</button>
     </div>
+    
   );
 }
 
