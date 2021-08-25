@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
-import React, { useState } from "react";
-=======
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/actions";
 import Logo from "../../assets/fitness_logo.svg";
 import { Link } from "react-router-dom";
->>>>>>> Stashed changes
 
 const initialFormValues = {
   first_name: "",
@@ -18,72 +13,6 @@ const initialFormValues = {
   password: "",
 };
 
-<<<<<<< Updated upstream
-const Register = () => {
-  const [formValues, setFormValues] = setState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  return (
-    <div>
-      <h1>Register Here</h1>
-      <form>
-        <label>
-          First Name
-          <input
-            type="text"
-            name="first_name"
-            value={formValues["first_name"]}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            name="last_name"
-            value={formValues["last_name"]}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-          />
-        </label>
-        <select name="role" value={formValues.role} onChange={handleChange}>
-          <option name="user">User</option>
-          <option name="instructor">Instructor</option>
-        </select>
-        <label>
-          Username
-          <input
-            type="text"
-            name="username"
-            value={formValues.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button>Submit</button>
-      </form>
-    </div>
-=======
 const initialFormErrors = {
   first_name: "",
   last_name: "",
@@ -240,7 +169,6 @@ const Register = (props) => {
         <img src={Logo} className="register-logo d-sm-block d-none" />
       </div>
     </section>
->>>>>>> Stashed changes
   );
 };
 
