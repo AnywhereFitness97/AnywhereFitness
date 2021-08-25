@@ -6,6 +6,10 @@ function AvailableClassFocus(props) {
   const { id } = useParams();
   const card = dummyData.find((card) => card.id === parseInt(id));
 
+  const handleRegister = () => {
+    console.log("hi");
+  };
+
   return (
     <div>
       <div>
@@ -21,7 +25,9 @@ function AvailableClassFocus(props) {
       <p>{card.class_time}</p>
       <p>{card.class_duration}</p>
       <p>Cost: </p>
-      <button className="btn btn-primary">Register</button>
+      <button className="btn btn-primary" onClick={handleRegister}>
+        Register
+      </button>
     </div>
   );
 }
