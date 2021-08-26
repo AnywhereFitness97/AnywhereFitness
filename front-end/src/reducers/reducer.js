@@ -3,10 +3,12 @@ import {
   REGISTER_USER,
   SET_CURRENT_USER,
   UPDATE_CURRENT_USER,
+  ADD_NEW_CLASS,
 } from "../actions/actions.js";
 
 const initialState = {
   users: [],
+  classes: [],
   currentUser: {},
 };
 
@@ -26,6 +28,7 @@ export const reducer = (state = initialState, action) => {
             auth_key: action.payload.auth_key,
             role: action.payload.role,
             id: randId(),
+            classes: [],
           },
         ],
       };
@@ -42,6 +45,18 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: state.users.find((cur) => cur.id === state.currentUser.id),
+      };
+    case ADD_NEW_CLASS:
+      return {
+        ...state,
+        classes: [...state.classes, action.payload],
+        users: state.users.map((cur) => {
+          if (cur.id === action.payload.instructor_id) {
+            return { ...cur, classes: [...cur.classes, action.payload] };
+          } else {
+            return cur;
+          }
+        }),
       };
     default:
       return state;
