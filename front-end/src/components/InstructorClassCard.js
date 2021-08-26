@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { deleteClass, updateCurrentUser } from "../actions/actions";
+import { connect } from "react-redux";
 
 function InstructorClassCard(props) {
   const { card } = props;
   console.log(card);
+
+  const handleDelete = () => {
+    props.deleteClass({ id: card.id, instructor_id: card.instructor_id });
+    props.updateCurrentUser();
+  };
   return (
     <div className="my-2 border">
       <div className="d-flex">
@@ -28,10 +35,15 @@ function InstructorClassCard(props) {
           <Link to={`/instructor/${card.id}`}>
             <button className="btn btn-dark">Edit</button>
           </Link>
+          <button className="btn btn-danger" onClick={handleDelete}>
+            Delete
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default InstructorClassCard;
+export default connect(null, { deleteClass, updateCurrentUser })(
+  InstructorClassCard
+);

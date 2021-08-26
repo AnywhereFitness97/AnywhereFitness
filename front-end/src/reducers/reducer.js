@@ -5,6 +5,7 @@ import {
   UPDATE_CURRENT_USER,
   ADD_NEW_CLASS,
   UPDATE_CLASS,
+  DELETE_CLASS,
 } from "../actions/actions.js";
 
 const initialState = {
@@ -85,6 +86,25 @@ export const reducer = (state = initialState, action) => {
             };
           } else {
             return cur;
+          }
+        }),
+      };
+    case DELETE_CLASS:
+      return {
+        ...state,
+        classes: state.classes.filter(
+          (_class) => _class.id !== action.payload.id
+        ),
+        users: state.users.map((user) => {
+          if (user.id === action.payload.instructor_id) {
+            return {
+              ...user,
+              classes: user.classes.filter(
+                (_class) => _class.id !== action.payload.id
+              ),
+            };
+          } else {
+            return user;
           }
         }),
       };

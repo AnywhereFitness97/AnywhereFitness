@@ -306,6 +306,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { updateClass, updateCurrentUser })(
-  UpdateForm
-);
+export default connect(mapStateToProps, {
+  updateClass,
+  updateCurrentUser,
+})(UpdateForm);
