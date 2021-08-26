@@ -18,7 +18,7 @@ function LocationBar(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hi");
+    console.log("hgi");
   };
   return (
     <div>
