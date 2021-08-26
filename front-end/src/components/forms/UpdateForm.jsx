@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import dummyData from "../../dummyData";
+import { connect } from "react-redux";
 
 const initialFormErrors = {
   class_name: "",
@@ -26,7 +27,9 @@ const FormSchema = yup.object().shape({
 
 const UpdateForm = (props) => {
   const id = props.match.params.id;
-  const initialFormValues = dummyData.find((card) => card.id == id);
+  const initialFormValues = props.currentUser.classes.find(
+    (card) => card.id == id
+  );
 
   const [updateFormValues, setUpdateFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -114,7 +117,7 @@ const UpdateForm = (props) => {
           <input
             type="text"
             name="class_location"
-            value={updateFormValues["class_location"]}
+            value={updateFormValues["class_location"].address}
             onChange={handleChange}
           />
         </label>
@@ -124,7 +127,7 @@ const UpdateForm = (props) => {
           <input
             type="text"
             name="max_class_size"
-            value={updateFormValues["max_class_size"]}
+            value={updateFormValues["class_size"]}
             onChange={handleChange}
           />
         </label>
@@ -135,4 +138,10 @@ const UpdateForm = (props) => {
   );
 };
 
-export default UpdateForm;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps)(UpdateForm);

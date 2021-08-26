@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import LocationBar from "./LocationBarCreateClass";
+import { connect } from "react-redux";
+import { addNewClass, updateCurrentUser } from "../../actions/actions";
+import randId from "../../utils/randomIdGen";
 
-const CreateClass = () => {
-  const [name, setName] = useState("");
-  const [classDescription, setClassDescription] = useState("");
-  const [classType, setClassType] = useState("");
-  const [days, setDays] = useState("");
-  const [time, setTime] = useState("");
-  const [duration, setDuration] = useState("");
-  const [intensityLevel, setIntensityLevel] = useState("");
-  const [location, setLocation] = useState("");
-  const [numberOfAttendees, setNumberOfAttendees] = useState("");
+const CreateClass = (props) => {
   const [formData, setFormData] = useState({});
 
   const formSchema = yup.object().shape({
@@ -75,12 +70,21 @@ const CreateClass = () => {
       valueToUse = e.target.checked;
     }
     setFormData({ ...formData, [e.target.name]: valueToUse });
+    console.log(props);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    props.addNewClass({
+      ...formData,
+      id: randId(),
+      instructor_id: props.currentUser.id,
+    });
   };
+
+  useEffect(() => {
+    props.updateCurrentUser();
+  }, [props.users.find((user) => user.id === props.currentUser.id)]);
 
   return (
     <div>
@@ -134,7 +138,17 @@ const CreateClass = () => {
             </label>
           </div>
 
-          <div>
+          <label>
+            Class Date
+            <input
+              type="date"
+              name="class_date"
+              value={formData.class_date}
+              onChange={onChange}
+            />
+          </label>
+
+          {/* <div>
             <label>Days of Class</label>
             <input
               type="checkbox"
@@ -192,7 +206,7 @@ const CreateClass = () => {
             />{" "}
             Sat
             <br />
-          </div>
+          </div> */}
           <div>
             <label>Class Time</label>
             <input
@@ -205,7 +219,7 @@ const CreateClass = () => {
               inputProps={{
                 step: 300, // 5 min
               }}
-              name="time"
+              name="class_time"
             />
           </div>
           <div>
@@ -217,7 +231,7 @@ const CreateClass = () => {
                 type="dropdown"
                 value={formData.duration}
                 onChange={onChange}
-                name="duration"
+                name="class_duration"
               >
                 <option>--Duration--</option>
                 <option>30 Minutes</option>
@@ -238,7 +252,7 @@ const CreateClass = () => {
                 type="dropdown"
                 value={formData.intensity}
                 onChange={onChange}
-                name="intensity"
+                name="class_intensity_level"
               >
                 <option>--Intensity--</option>
                 <option>Low</option>
@@ -250,12 +264,8 @@ const CreateClass = () => {
           </div>
           <div>
             <label>Location</label>
-            <input
-              type="text"
-              value={formData.location}
-              onChange={onChange}
-              name="location"
-            />
+
+            <LocationBar setFormData={setFormData} formData={formData} />
           </div>
           <div>
             <label>
@@ -276,4 +286,12 @@ const CreateClass = () => {
   );
 };
 
-export default CreateClass;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { addNewClass, updateCurrentUser })(
+  CreateClass
+);

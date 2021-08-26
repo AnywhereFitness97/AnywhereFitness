@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function InstructorClassCard(props) {
   const { card } = props;
+  console.log(card);
   return (
     <div className="my-2 border">
       <div className="d-flex">
@@ -15,7 +16,7 @@ function InstructorClassCard(props) {
         <div className="p-2">
           <div className="inst-card-text-top">
             <h1>{card.class_name}</h1>
-            <h4>{card.class_location}</h4>
+            <h4>{card.class_location.address}</h4>
           </div>
           <div className="d-flex justify-content between ">
             <h4>{card.class_date}</h4>
