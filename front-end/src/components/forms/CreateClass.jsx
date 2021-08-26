@@ -90,10 +90,10 @@ const CreateClass = (props) => {
 
   return (
     <section className="py-5">
-      <div className="container d-flex flex-lg-row flex-column align-items-center">
+      <div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">
         <form
           onSubmit={handleSubmit}
-          className="class-form d-flex flex-column p-3"
+          className="class-form d-flex flex-column ms-xl-4"
         >
           <h1>Create Class</h1>
 
@@ -230,7 +230,7 @@ const CreateClass = (props) => {
             Submit
           </button>
         </form>
-        <img src={Logo} className="class-form-logo d-none d-sm-block" />
+        <img src={Logo} className="class-form-logo d-none d-sm-block me-xl-4" />
       </div>
     </section>
   );

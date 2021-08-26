@@ -125,12 +125,11 @@
 .class-form {
   width: 100%;
   max-width: 500px;
-  margin: auto;
+
   /* background-color: red; */
 }
 .class-form-logo {
   width: 45%;
-  margin-left: 0px;
 }
 
 .class-form input,
