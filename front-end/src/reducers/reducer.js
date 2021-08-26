@@ -4,12 +4,15 @@ import {
   SET_CURRENT_USER,
   UPDATE_CURRENT_USER,
   ADD_NEW_CLASS,
+  UPDATE_CLASS,
 } from "../actions/actions.js";
 
 const initialState = {
   users: [],
   classes: [],
-  currentUser: {},
+  currentUser: {
+    role: "",
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -53,6 +56,33 @@ export const reducer = (state = initialState, action) => {
         users: state.users.map((cur) => {
           if (cur.id === action.payload.instructor_id) {
             return { ...cur, classes: [...cur.classes, action.payload] };
+          } else {
+            return cur;
+          }
+        }),
+      };
+    case UPDATE_CLASS:
+      return {
+        ...state,
+        classes: state.classes.map((cur) => {
+          if (cur.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return cur;
+          }
+        }),
+        users: state.users.map((cur) => {
+          if (cur.id === action.payload.instructor_id) {
+            return {
+              ...cur,
+              classes: cur.classes.map((class_) => {
+                if (class_.id === action.payload.id) {
+                  return action.payload;
+                } else {
+                  return class_;
+                }
+              }),
+            };
           } else {
             return cur;
           }

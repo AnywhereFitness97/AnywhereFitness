@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import dummyData from "../../dummyData";
 import { connect } from "react-redux";
+import LocationBar from "./LocationBarCreateClass";
+import Logo from "../../assets/edit_logo.svg";
+import { updateClass, updateCurrentUser } from "../../actions/actions";
 
 const initialFormErrors = {
   class_name: "",
@@ -27,11 +30,11 @@ const FormSchema = yup.object().shape({
 
 const UpdateForm = (props) => {
   const id = props.match.params.id;
-  const initialFormValues = props.currentUser.classes.find(
+  const initialFormData = props.currentUser.classes.find(
     (card) => card.id == id
   );
 
-  const [updateFormValues, setUpdateFormValues] = useState(initialFormValues);
+  const [formData, setFormData] = useState(initialFormData);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
   const validate = (name, value) => {
@@ -42,100 +45,259 @@ const UpdateForm = (props) => {
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
-  const handleChange = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     validate(name, value);
-    setUpdateFormValues({ ...updateFormValues, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.updateClass(formData);
+    props.updateCurrentUser();
+  };
+  useEffect(() => {
+    console.log(initialFormData);
+  });
   return (
-    <div>
-      <h1>Update your class</h1>
-      <form>
-        <label>
-          Class Name
-          <input
-            type="text"
-            name="class_name"
-            value={updateFormValues["class_name"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_name"]}</div>
-        <label>
-          Class Type
-          <input
-            type="text"
-            name="class_type"
-            value={updateFormValues["class_type"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_type"]}</div>
-        <label>
-          Class Time
-          <input
-            type="text"
-            name="class_time"
-            value={updateFormValues["class_time"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_time"]}</div>
-        <label>
-          Class Date
-          <input
-            type="date"
-            name="class_date"
-            value={updateFormValues["class_date"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_date"]}</div>
-        <label>
-          Class Duration
-          <input
-            type="text"
-            name="class_duration"
-            value={updateFormValues["class_duration"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_duration"]}</div>
-        <label>
-          Class Intensity Level
-          <input
-            type="text"
-            name="class_intensity_level"
-            value={updateFormValues["class_intensity_level"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_intensity_level"]}</div>
-        <label>
-          Class Location
-          <input
-            type="text"
-            name="class_location"
-            value={updateFormValues["class_location"].address}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["class_location"]}</div>
-        <label>
-          Max Class Number
-          <input
-            type="text"
-            name="max_class_size"
-            value={updateFormValues["class_size"]}
-            onChange={handleChange}
-          />
-        </label>
-        <div className="error">{formErrors["max_class_size"]}</div>
-        <button>Submit</button>
-      </form>
-    </div>
+    <section className="py-5">
+      <div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="class-form d-flex flex-column ms-xl-4"
+        >
+          <h1>Edit Class</h1>
+
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
+              Class Name
+              <input
+                type="text"
+                value={formData.class_name}
+                onChange={onChange}
+                name="class_name"
+              />
+            </label>
+
+            <label className="d-flex flex-column half">
+              {" "}
+              Class Type:
+              <select
+                id="type-dropdown"
+                type="dropdown"
+                value={formData.class_type}
+                onChange={onChange}
+                name="class_type"
+              >
+                <option>--Choose Class Type--</option>
+                <option>Aerobics</option>
+                <option>Aquatic Fitness</option>
+                <option>CrossFit</option>
+                <option>Dance</option>
+                <option>Jazzercise</option>
+                <option>Kickboxing</option>
+                <option>Personal Training</option>
+                <option>Pilates</option>
+                <option>Spinning</option>
+                <option>Step Aerobics</option>
+                <option>Yoga</option>
+                <option>Zumba</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+
+          <label className="d-flex flex-column">
+            Class Description
+            <input
+              type="text"
+              value={formData.description}
+              onChange={onChange}
+              name="description"
+            />
+          </label>
+
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
+              {" "}
+              Class Duration:
+              <select
+                id="duration-dropdown"
+                type="dropdown"
+                value={formData.class_duration}
+                onChange={onChange}
+                name="class_duration"
+              >
+                <option>--Duration--</option>
+                <option>30 Minutes</option>
+                <option>45 Minutes</option>
+                <option>60 Minutes</option>
+                <option>75 Minutes</option>
+                <option>90 Minutes</option>
+                <option>105 Minutes</option>
+                <option>120 Minutes</option>
+              </select>
+            </label>
+
+            <label className="d-flex flex-column half">
+              {" "}
+              Intensity Level:
+              <select
+                type="dropdown"
+                value={formData.class_intensity_level}
+                onChange={onChange}
+                name="class_intensity_level"
+              >
+                <option>--Intensity--</option>
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+                <option>Extreme</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Location
+            <LocationBar
+              setFormData={setFormData}
+              formData={formData}
+              editClassLocation={formData.class_location.address}
+            />
+          </label>
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column third">
+              Class Date
+              <input
+                type="date"
+                name="class_date"
+                value={formData.class_date}
+                onChange={onChange}
+              />
+            </label>
+            <label className="d-flex flex-column third">
+              Class Time
+              <input
+                type="time"
+                value={formData.class_time}
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+                name="class_time"
+              />
+            </label>
+
+            <label className="d-flex flex-column third">
+              {" "}
+              Class Size:
+              <input
+                type="number"
+                value={formData.class_size}
+                onChange={onChange}
+                name="class_size"
+              />
+            </label>
+          </div>
+          <button type="submit" className="btn btn-primary align-self-end ">
+            Submit
+          </button>
+        </form>
+        <img src={Logo} className="class-form-logo d-none d-sm-block me-xl-4" />
+      </div>
+    </section>
   );
+
+  // return (
+  //   <div>
+  //     <h1>Update your class</h1>
+  //     <form>
+  //       <label>
+  //         Class Name
+  //         <input
+  //           type="text"
+  //           name="class_name"
+  //           value={updateFormValues["class_name"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_name"]}</div>
+  //       <label>
+  //         Class Type
+  //         <input
+  //           type="text"
+  //           name="class_type"
+  //           value={updateFormValues["class_type"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_type"]}</div>
+  //       <label>
+  //         Class Time
+  //         <input
+  //           type="text"
+  //           name="class_time"
+  //           value={updateFormValues["class_time"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_time"]}</div>
+  //       <label>
+  //         Class Date
+  //         <input
+  //           type="date"
+  //           name="class_date"
+  //           value={updateFormValues["class_date"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_date"]}</div>
+  //       <label>
+  //         Class Duration
+  //         <input
+  //           type="text"
+  //           name="class_duration"
+  //           value={updateFormValues["class_duration"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_duration"]}</div>
+  //       <label>
+  //         Class Intensity Level
+  //         <input
+  //           type="text"
+  //           name="class_intensity_level"
+  //           value={updateFormValues["class_intensity_level"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_intensity_level"]}</div>
+  //       <label>
+  //         Class Location
+  //         <input
+  //           type="text"
+  //           name="class_location"
+  //           value={updateFormValues["class_location"].address}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["class_location"]}</div>
+  //       <label>
+  //         Max Class Number
+  //         <input
+  //           type="text"
+  //           name="max_class_size"
+  //           value={updateFormValues["class_size"]}
+  //           onChange={handleChange}
+  //         />
+  //       </label>
+  //       <div className="error">{formErrors["max_class_size"]}</div>
+  //       <button>Submit</button>
+  //     </form>
+  //   </div>
+  // );
 };
 
 const mapStateToProps = (state) => {
@@ -144,4 +306,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(UpdateForm);
+export default connect(mapStateToProps, { updateClass, updateCurrentUser })(
+  UpdateForm
+);

@@ -6,7 +6,7 @@ import PlacesAutocomplete, {
 import searchLogo from "../../assets/searchIcon.svg";
 
 function LocationBar(props) {
-  const { setFormData, formData } = props;
+  const { setFormData, formData, editClassLocation } = props;
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
 
@@ -22,9 +22,12 @@ function LocationBar(props) {
     setFormData({ ...formData, ["class_location"]: locationObj });
   };
 
-  const handleChange = () => {
-    console.log("hi");
-  };
+  useEffect(() => {
+    if (editClassLocation) {
+      setAddress(editClassLocation);
+    }
+  }, []);
+
   return (
     <div>
       <PlacesAutocomplete

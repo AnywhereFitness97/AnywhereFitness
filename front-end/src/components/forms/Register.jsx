@@ -120,8 +120,8 @@ const Register = (props) => {
             {" "}
             Role
             <select name="role" value={formValues.role} onChange={handleChange}>
-              <option name="client">Client</option>
-              <option name="instructor">Instructor</option>
+              <option name="Client">Client</option>
+              <option name="Instructor">Instructor</option>
             </select>
             <div className="error register-error">{formErrors.role}</div>
           </label>

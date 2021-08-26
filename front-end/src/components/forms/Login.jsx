@@ -87,6 +87,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../actions/actions";
+
 const Login = (props) => {
   const dispatch = useDispatch();
   // Initial Values
@@ -144,8 +145,17 @@ const Login = (props) => {
   }, [credentials]);
 
   useEffect(() => {
-    if (!props.currentUser) return;
-    props.history.push(`/${props.currentUser.role}`);
+    if (props.currentUser == undefined) {
+      console.log("no current user");
+      return;
+    }
+    if (props.currentUser.role == "Instructor") {
+      props.history.push(`/instructor`);
+    } else if (props.currentUser.role == "Client") {
+      props.history.push(`/client`);
+    } else {
+      console.log("no current user");
+    }
   }, [props.currentUser]);
   /////////
 
