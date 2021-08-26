@@ -16,6 +16,10 @@ function LocationBar(props) {
     setCoordinates(latlng);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("hi");
+  };
   return (
     <div>
       <PlacesAutocomplete
@@ -26,53 +30,56 @@ function LocationBar(props) {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
           console.log(getInputProps());
           return (
-            <div className="m-auto" style={{ width: "416px" }}>
-              <div className="d-flex">
-                <input
-                  {...getInputProps({
-                    placeholder: "Type Address",
-                  })}
-                  style={{ width: "100%" }}
-                />
-                <img
-                  src={searchLogo}
+            <form onSubmit={handleSubmit}>
+              <div className="m-auto" style={{ width: "426px" }}>
+                <div className="d-flex justify-content-between">
+                  <input
+                    {...getInputProps({
+                      placeholder: "Type Address",
+                    })}
+                    style={{ width: "400px" }}
+                  />
+                  <button className="bg-white border-0" type="submit">
+                    <img
+                      src={searchLogo}
+                      style={{ cursor: "pointer" }}
+                      type="submit"
+                    />
+                  </button>
+                </div>
+
+                <div
                   style={{
-                    transform: "translateX(-20px)",
+                    zIndex: "3",
+                    position: "absolute",
+                    paddingTop: "2px",
+                    // border: "2px solid black",
+                    borderRadius: "2px",
+                    overflow: "hidden",
                   }}
-                />
-              </div>
-
-              <div
-                style={{
-                  zIndex: "3",
-                  position: "absolute",
-                  paddingTop: "2px",
-                  // border: "2px solid black",
-                  borderRadius: "2px",
-                  overflow: "hidden",
-                }}
-              >
-                {loading ? (
-                  <div style={{ backgroundColor: "white", width: "400px" }}>
-                    ...Loading
-                  </div>
-                ) : null}
-
-                {suggestions.map((suggestion) => {
-                  const style = {
-                    zIndex: "2",
-                    width: "400px",
-                    cursor: suggestion.active ? "pointer" : null,
-                    backgroundColor: suggestion.active ? "#d3d3d3" : "white",
-                  };
-                  return (
-                    <div {...getSuggestionItemProps(suggestion, { style })}>
-                      {suggestion.description}
+                >
+                  {loading ? (
+                    <div style={{ backgroundColor: "white", width: "400px" }}>
+                      ...Loading
                     </div>
-                  );
-                })}
+                  ) : null}
+
+                  {suggestions.map((suggestion) => {
+                    const style = {
+                      zIndex: "2",
+                      width: "400px",
+                      cursor: suggestion.active ? "pointer" : null,
+                      backgroundColor: suggestion.active ? "#d3d3d3" : "white",
+                    };
+                    return (
+                      <div {...getSuggestionItemProps(suggestion, { style })}>
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </form>
           );
         }}
       </PlacesAutocomplete>
