@@ -35,14 +35,14 @@ function LocationBar(props) {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
           return (
             <form>
-              <div className="m-auto" style={{ width: "426px" }}>
+              <div className="m-auto" style={{ width: "100%" }}>
                 <div className="d-flex justify-content-between">
                   <input
                     {...getInputProps({
                       placeholder: "Type Address",
                     })}
                     // onChange={handleChange}
-                    style={{ width: "400px" }}
+                    style={{ width: "100%" }}
                   />
                 </div>
 
@@ -57,7 +57,7 @@ function LocationBar(props) {
                   }}
                 >
                   {loading ? (
-                    <div style={{ backgroundColor: "white", width: "400px" }}>
+                    <div style={{ backgroundColor: "white", width: "500px" }}>
                       ...Loading
                     </div>
                   ) : null}
@@ -65,7 +65,7 @@ function LocationBar(props) {
                   {suggestions.map((suggestion) => {
                     const style = {
                       zIndex: "2",
-                      width: "400px",
+                      width: "500px",
                       cursor: suggestion.active ? "pointer" : null,
                       backgroundColor: suggestion.active ? "#d3d3d3" : "white",
                     };

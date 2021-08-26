@@ -4,6 +4,8 @@ import LocationBar from "./LocationBarCreateClass";
 import { connect } from "react-redux";
 import { addNewClass, updateCurrentUser } from "../../actions/actions";
 import randId from "../../utils/randomIdGen";
+import "../../App.css";
+import Logo from "../../assets/personal_trainer.svg";
 
 const CreateClass = (props) => {
   const [formData, setFormData] = useState({});
@@ -87,30 +89,26 @@ const CreateClass = (props) => {
   }, [props.users.find((user) => user.id === props.currentUser.id)]);
 
   return (
-    <div>
-      <h1>Create Class</h1>
-      <div className="classForm">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Class Name</label>
-            <input
-              type="text"
-              value={formData.class_name}
-              onChange={onChange}
-              name="class_name"
-            />
-          </div>
-          <div>
-            <label>Class Description</label>
-            <input
-              type="text"
-              value={formData.description}
-              onChange={onChange}
-              name="description"
-            />
-          </div>
-          <div>
-            <label>
+    <section className="py-5">
+      <div className="container d-flex flex-lg-row flex-column align-items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="class-form d-flex flex-column p-3"
+        >
+          <h1>Create Class</h1>
+
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
+              Class Name
+              <input
+                type="text"
+                value={formData.class_name}
+                onChange={onChange}
+                name="class_name"
+              />
+            </label>
+
+            <label className="d-flex flex-column half">
               {" "}
               Class Type:
               <select
@@ -138,92 +136,18 @@ const CreateClass = (props) => {
             </label>
           </div>
 
-          <label>
-            Class Date
+          <label className="d-flex flex-column">
+            Class Description
             <input
-              type="date"
-              name="class_date"
-              value={formData.class_date}
+              type="text"
+              value={formData.description}
               onChange={onChange}
+              name="description"
             />
           </label>
 
-          {/* <div>
-            <label>Days of Class</label>
-            <input
-              type="checkbox"
-              name="sunday"
-              onChange={onChange}
-              checked={formData.sunday}
-            />{" "}
-            Sun
-            <br />
-            <input
-              type="checkbox"
-              name="monday"
-              onChange={onChange}
-              checked={formData.monday}
-            />{" "}
-            Mon
-            <br />
-            <input
-              type="checkbox"
-              name="tuesday"
-              onChange={onChange}
-              checked={formData.tuesday}
-            />{" "}
-            Tue
-            <br />
-            <input
-              type="checkbox"
-              name="wednesday"
-              onChange={onChange}
-              checked={formData.wednesday}
-            />{" "}
-            Wed
-            <br />
-            <input
-              type="checkbox"
-              name="thursday"
-              onChange={onChange}
-              checked={formData.thursday}
-            />{" "}
-            Thurs
-            <br />
-            <input
-              type="checkbox"
-              name="friday"
-              onChange={onChange}
-              checked={formData.friday}
-            />{" "}
-            Fri
-            <br />
-            <input
-              type="checkbox"
-              name="saturday"
-              onChange={onChange}
-              checked={formData.saturday}
-            />{" "}
-            Sat
-            <br />
-          </div> */}
-          <div>
-            <label>Class Time</label>
-            <input
-              type="time"
-              //   value={time}
-              onChange={onChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-              name="class_time"
-            />
-          </div>
-          <div>
-            <label>
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
               {" "}
               Class Duration:
               <select
@@ -243,9 +167,8 @@ const CreateClass = (props) => {
                 <option>120 Minutes</option>
               </select>
             </label>
-          </div>
-          <div>
-            <label>
+
+            <label className="d-flex flex-column half">
               {" "}
               Intensity Level:
               <select
@@ -262,13 +185,37 @@ const CreateClass = (props) => {
               </select>
             </label>
           </div>
-          <div>
-            <label>Location</label>
-
+          <label>
+            Location
             <LocationBar setFormData={setFormData} formData={formData} />
-          </div>
-          <div>
-            <label>
+          </label>
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column third">
+              Class Date
+              <input
+                type="date"
+                name="class_date"
+                value={formData.class_date}
+                onChange={onChange}
+              />
+            </label>
+            <label className="d-flex flex-column third">
+              Class Time
+              <input
+                type="time"
+                //   value={time}
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+                name="class_time"
+              />
+            </label>
+
+            <label className="d-flex flex-column third">
               {" "}
               Class Size:
               <input
@@ -279,10 +226,13 @@ const CreateClass = (props) => {
               />
             </label>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn btn-primary align-self-end ">
+            Submit
+          </button>
         </form>
+        <img src={Logo} className="class-form-logo d-none d-sm-block" />
       </div>
-    </div>
+    </section>
   );
 };
 
