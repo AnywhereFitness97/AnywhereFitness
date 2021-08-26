@@ -2,6 +2,7 @@ import React from "react";
 import dummyData from "../dummyData";
 import AvailableClassCard from "./AvailableClassCard";
 import LocationBarSearch from "./forms/LocationBarSearch";
+import { connect } from "react-redux";
 
 function Client(props) {
   return (
@@ -9,7 +10,7 @@ function Client(props) {
       <LocationBarSearch />
       <div className="container">
         <div className="d-flex flex-wrap">
-          {dummyData.map((card) => (
+          {props.classes.map((card) => (
             <AvailableClassCard card={card} />
           ))}
         </div>
@@ -18,4 +19,10 @@ function Client(props) {
   );
 }
 
-export default Client;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps)(Client);

@@ -1,10 +1,16 @@
 import React from "react";
 import dummyData from "../dummyData";
+import { connect } from "react-redux";
+import { unregister } from "../actions/actions";
 
 function UpcomingClasses(props) {
   return (
     <div>
-      {dummyData.map((card) => {
+      {props.currentUser.classes.map((card) => {
+        const handleUnregister = () => {
+          console.log("unregister");
+          props.unregister({ id: card.id, instructor_id: card.instructor_id });
+        };
         return (
           <div className="container my-2 bg-secondary border">
             <div className="d-flex justify-content-between">
@@ -40,6 +46,7 @@ function UpcomingClasses(props) {
                     type="button"
                     class="btn-close"
                     aria-label="Close"
+                    onClick={handleUnregister}
                   ></button>
                   <button className="p-2 btn btn-dark">Punch Pass</button>
                 </div>
@@ -52,4 +59,10 @@ function UpcomingClasses(props) {
   );
 }
 
-export default UpcomingClasses;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { unregister })(UpcomingClasses);

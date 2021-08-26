@@ -1,13 +1,19 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import dummyData from "../dummyData";
+import { connect } from "react-redux";
+import { registerClass } from "../actions/actions";
 
 function AvailableClassFocus(props) {
   const { id } = useParams();
-  const card = dummyData.find((card) => card.id === parseInt(id));
+  // const card = dummyData.find((card) => card.id === parseInt(id));
+  const card = props.classes.find((card) => card.id === id);
 
   const handleRegister = () => {
-    console.log("hi");
+    console.log(card);
+
+    if (props.currentUser.classes.includes(card)) return;
+    props.registerClass(card);
   };
 
   return (
@@ -46,4 +52,10 @@ function AvailableClassFocus(props) {
   );
 }
 
-export default AvailableClassFocus;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { registerClass })(AvailableClassFocus);

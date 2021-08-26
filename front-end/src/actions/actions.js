@@ -4,6 +4,8 @@ export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
 export const ADD_NEW_CLASS = "ADD_NEW_CLASS";
 export const UPDATE_CLASS = "UPDATE_CLASS";
 export const DELETE_CLASS = "DELETE_CLASS";
+export const REGISTER_FOR_CLASS = "REGISTER_FOR_CLASS";
+export const UNREGISTER = "UNREGISTERs";
 
 export const registerUser = (data) => {
   return { type: REGISTER_USER, payload: data };
@@ -27,4 +29,12 @@ export const updateClass = (data) => {
 
 export const deleteClass = (data) => {
   return { type: DELETE_CLASS, payload: data };
+};
+
+export const registerClass = (data) => {
+  return { type: REGISTER_FOR_CLASS, payload: data };
+};
+
+export const unregister = (data) => {
+  return { type: UNREGISTER, payload: data };
 };
