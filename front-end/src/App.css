@@ -121,3 +121,28 @@
     width: 100%;
   }
 }
+
+.class-form {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  /* background-color: red; */
+}
+.class-form-logo {
+  width: 45%;
+  margin-left: 0px;
+}
+
+.class-form input,
+.class-form select {
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.third {
+  width: 30%;
+}
+
+.half {
+  width: 47.5%;
+}
