@@ -6,6 +6,8 @@ import {
   ADD_NEW_CLASS,
   UPDATE_CLASS,
   DELETE_CLASS,
+  REGISTER_FOR_CLASS,
+  UNREGISTER,
 } from "../actions/actions.js";
 
 const initialState = {
@@ -103,6 +105,38 @@ export const reducer = (state = initialState, action) => {
                 (_class) => _class.id !== action.payload.id
               ),
             };
+          } else {
+            return user;
+          }
+        }),
+      };
+    case REGISTER_FOR_CLASS:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          classes: [...state.currentUser.classes, action.payload],
+        },
+        users: state.users.map((user) => {
+          if (user.id === action.payload.instructor_id) {
+            return state.currentUser;
+          } else {
+            return user;
+          }
+        }),
+      };
+    case UNREGISTER:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          classes: state.currentUser.classes.filter((_class) => {
+            return _class.id !== action.payload.id;
+          }),
+        },
+        users: state.users.map((user) => {
+          if (user.id === action.payload.instructor_id) {
+            return state.currentUser;
           } else {
             return user;
           }
