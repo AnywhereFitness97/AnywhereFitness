@@ -27,14 +27,14 @@ function Instructor(props) {
             ))}
           </div>
         )}
-
+        {/* 
         {props.currentUser.classes.length === 0 && (
           <div>
             {dummyData.map((card) => (
               <InstructorClassCard card={card} />
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

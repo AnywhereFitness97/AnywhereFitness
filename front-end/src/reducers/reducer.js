@@ -118,8 +118,11 @@ export const reducer = (state = initialState, action) => {
           classes: [...state.currentUser.classes, action.payload],
         },
         users: state.users.map((user) => {
-          if (user.id === action.payload.instructor_id) {
-            return state.currentUser;
+          if (user.id === state.currentUser.id) {
+            return {
+              ...state.currentUser,
+              classes: [...state.currentUser.classes, action.payload],
+            };
           } else {
             return user;
           }
@@ -135,8 +138,13 @@ export const reducer = (state = initialState, action) => {
           }),
         },
         users: state.users.map((user) => {
-          if (user.id === action.payload.instructor_id) {
-            return state.currentUser;
+          if (user.id === state.currentUser.id) {
+            return {
+              ...state.currentUser,
+              classes: state.currentUser.classes.filter((_class) => {
+                return _class.id !== action.payload.id;
+              }),
+            };
           } else {
             return user;
           }
