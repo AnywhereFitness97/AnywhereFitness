@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteClass, updateCurrentUser } from "../actions/actions";
+import {
+  deleteClass,
+  updateCurrentUser,
+  setClasses,
+  getClasses,
+} from "../actions/actions";
 import { connect } from "react-redux";
+import axios from "axios";
 
 function InstructorClassCard(props) {
   const { card } = props;
-  console.log(card);
+  const { setInstructorClasses } = props;
+  const { instructorClasses } = props;
+
+  useEffect(() => {
+    const classes = props.classes.filter(
+      (_class) =>
+        _class.class_instructor_username === props.currentUser.username
+    );
+    setInstructorClasses(classes);
+  }, [props.classes]);
 
   const handleDelete = () => {
-    props.deleteClass({ id: card.id, instructor_id: card.instructor_id });
-    props.updateCurrentUser();
+    // props.deleteClass({ id: card.id, instructor_id: card.instructor_id });
+    // props.updateCurrentUser();
+    axios
+      .delete(
+        `https://anywherefitnessapis.herokuapp.com/api/v1/class/${card.classId}`
+      )
+      .then((res) => {
+        props.getClasses();
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="my-2 border">
@@ -44,6 +67,14 @@ function InstructorClassCard(props) {
   );
 }
 
-export default connect(null, { deleteClass, updateCurrentUser })(
-  InstructorClassCard
-);
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+export default connect(mapStateToProps, {
+  deleteClass,
+  updateCurrentUser,
+  setClasses,
+  getClasses,
+})(InstructorClassCard);

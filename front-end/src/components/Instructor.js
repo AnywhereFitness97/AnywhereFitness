@@ -2,13 +2,22 @@ import React, { useState, useEffect } from "react";
 import dummyData from "../dummyData";
 import InstructorClassCard from "./InstructorClassCard";
 import { connect } from "react-redux";
+import { getClasses } from "../actions/actions";
 
 function Instructor(props) {
   // const [data, setData] = useState([]);
+  const [instructorClasses, setInstructorClasses] = useState([]);
   useEffect(() => {
     // console.log(data);
     console.log(props);
-  });
+    props.getClasses();
+    const classes = props.classes.filter(
+      (_class) =>
+        _class.class_instructor_username === props.currentUser.username
+    );
+    setInstructorClasses(classes);
+    console.log("instructor classes set");
+  }, []);
 
   // useEffect(() => {
   //   console.log("in here");
@@ -19,15 +28,19 @@ function Instructor(props) {
   return (
     <section className="p-5">
       <div className="container">
-        {props.currentUser.classes && (
+        {instructorClasses && (
           <div>
-            {props.currentUser.classes.map((card) => (
-              <InstructorClassCard card={card} />
+            {instructorClasses.map((card) => (
+              <InstructorClassCard
+                card={card}
+                setInstructorClasses={setInstructorClasses}
+                instructorClasses={instructorClasses}
+              />
             ))}
           </div>
         )}
-        {/* 
-        {props.currentUser.classes.length === 0 && (
+
+        {/* {props.currentUser.classes.length === 0 && (
           <div>
             {dummyData.map((card) => (
               <InstructorClassCard card={card} />
@@ -45,4 +58,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Instructor);
+export default connect(mapStateToProps, { getClasses })(Instructor);
