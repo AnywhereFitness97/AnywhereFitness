@@ -34,7 +34,6 @@ const FormSchema = yup.object().shape({
   role: yup.string().required(),
   username: yup.string().trim().required("Username is required"),
   password: yup.string().trim().required("Password is required"),
-  auth_key: yup.string(),
 });
 
 const Register = (props) => {
@@ -68,10 +67,11 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.registerUser(formValues);
-    props.setCurrentUser(formValues);
-    if (formValues.role === "client") props.history.push("/client");
-    if (formValues.role === "Instructor") props.history.push("/instructor");
+    console.log(formValues);
+    // props.registerUser(formValues);
+    // props.setCurrentUser(formValues);
+    // if (formValues.role === "client") props.history.push("/client");
+    // if (formValues.role === "Instructor") props.history.push("/instructor");
   };
 
   return (
@@ -147,16 +147,7 @@ const Register = (props) => {
             />
           </label>
           <div className="error register-error">{formErrors.password}</div>
-          <label className="d-flex flex-column">
-            Authentication Key
-            <input
-              type="text"
-              name="auth_key"
-              value={formValues["auth_key"]}
-              placeholder="Authentication Key"
-              onChange={handleChange}
-            />
-          </label>
+
           <div className="error register-error">{formErrors["auth_key"]}</div>
           <button
             type="submit"
