@@ -3,7 +3,6 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import searchLogo from "../../assets/searchIcon.svg";
 
 function LocationBar(props) {
   const { setFormData, formData, editClassLocation } = props;
@@ -15,15 +14,15 @@ function LocationBar(props) {
     const latlng = await getLatLng(results[0]);
     setAddress(results[0].formatted_address);
     setCoordinates(latlng);
-    const locationObj = {
-      address: results[0].formatted_address,
-      coordinates: coordinates,
-    };
+    // const locationObj = {
+    //   address: results[0].formatted_address,
+    //   coordinates: coordinates,
+    // };
     setFormData({
       ...formData,
-      ["class_location"]: results[0].formatted_address,
-      ["class_location_lat"]: coordinates.lat,
-      ["class_location_long"]: coordinates.lng,
+      class_location: results[0].formatted_address,
+      class_location_lat: coordinates.lat,
+      class_location_long: coordinates.lng,
     });
   };
 
@@ -42,7 +41,7 @@ function LocationBar(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
           return (
-            <form>
+            <div>
               <div className="m-auto" style={{ width: "100%" }}>
                 <div className="d-flex justify-content-between">
                   <input
@@ -85,7 +84,7 @@ function LocationBar(props) {
                   })}
                 </div>
               </div>
-            </form>
+            </div>
           );
         }}
       </PlacesAutocomplete>

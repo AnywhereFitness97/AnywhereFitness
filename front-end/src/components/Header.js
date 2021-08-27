@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ function Header(props) {
   return (
     <nav className="navbar py-3 bg-dark navbar-dark navbar-expand-md">
       <div className="container navbar-container">
-        <a className="navbar-brand">Anywhere Fitness</a>
+        <button className="navbar-brand btn">Anywhere Fitness</button>
 
         <button
           className="navbar-toggler ms-auto"
@@ -31,7 +31,7 @@ function Header(props) {
             {pathname === "/" && (
               <li className="nav-item m-auto">
                 <Link to="/register" className="text-decoration-none">
-                  <a className="nav-link">Register</a>
+                  <button className="nav-link btn">Register</button>
                 </Link>
               </li>
             )}
@@ -39,7 +39,9 @@ function Header(props) {
             {pathname === "/register" && (
               <li className="nav-item m-auto">
                 <Link to="/" className="text-decoration-none">
-                  <a className="nav-link">Already Registered? Login</a>
+                  <button className="nav-link btn">
+                    Already Registered? Login
+                  </button>
                 </Link>
               </li>
             )}
@@ -48,12 +50,12 @@ function Header(props) {
               <>
                 <li className="nav-item m-auto">
                   <Link to="/instructor" className="text-decoration-none">
-                    <a className="nav-link">Your Classes</a>
+                    <button className="nav-link btn">Your Classes</button>
                   </Link>
                 </li>
                 <li className="nav-item m-auto">
                   <Link to="/instructor/add" className="text-decoration-none">
-                    <a className="nav-link">Create Class</a>
+                    <button className="nav-link btn">Create Class</button>
                   </Link>
                 </li>
               </>
@@ -63,12 +65,12 @@ function Header(props) {
               <>
                 <li className="nav-item m-auto">
                   <Link to="/client/upcoming" className="text-decoration-none">
-                    <a className="nav-link">Upcoming Classes</a>
+                    <button className="nav-link btn">Upcoming Classes</button>
                   </Link>
                 </li>
                 <li className="nav-item m-auto">
                   <Link to="/client" className="text-decoration-none">
-                    <a className="nav-link">Available Classes</a>
+                    <button className="nav-link btn">Available Classes</button>
                   </Link>
                 </li>
               </>
@@ -81,7 +83,7 @@ function Header(props) {
                   className="text-decoration-none"
                   onClick={handleLogout}
                 >
-                  <a className="nav-link">Logout</a>
+                  <button className="nav-link btn">Logout</button>
                 </Link>
               </li>
             )}

@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import dummyData from "../dummyData";
 import { connect } from "react-redux";
 import { registerClass, setClientList } from "../actions/actions";
 import axios from "axios";

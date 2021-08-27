@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import dummyData from "../dummyData";
 import { connect } from "react-redux";
 import { unregister, setClientClasses } from "../actions/actions";
 import axios from "axios";
