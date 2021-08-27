@@ -12,7 +12,6 @@ import axios from "axios";
 function InstructorClassCard(props) {
   const { card } = props;
   const { setInstructorClasses } = props;
-  const { instructorClasses } = props;
 
   useEffect(() => {
     const classes = props.classes.filter(
@@ -23,8 +22,6 @@ function InstructorClassCard(props) {
   }, [props.classes]);
 
   const handleDelete = () => {
-    // props.deleteClass({ id: card.id, instructor_id: card.instructor_id });
-    // props.updateCurrentUser();
     axios
       .delete(
         `https://anywherefitnessapis.herokuapp.com/api/v1/class/${card.classId}`
@@ -55,7 +52,7 @@ function InstructorClassCard(props) {
           </div>
           <h4>Intensity: {card.class_intensity_level}</h4>
           <h4>Cost: $10</h4>
-          <Link to={`/instructor/${card.id}`}>
+          <Link to={`/instructor/${card.classId}`}>
             <button className="btn btn-dark">Edit</button>
           </Link>
           <button className="btn btn-danger" onClick={handleDelete}>
