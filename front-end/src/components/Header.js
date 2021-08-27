@@ -2,9 +2,16 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sorter from "./Sorter";
+import { connect } from "react-redux";
+import { setCurrentUser } from "../actions/actions";
 
 function Header(props) {
   const pathname = useLocation().pathname;
+
+  const handleLogout = () => {
+    console.log("logout");
+    props.setCurrentUser({ username: null, password: null });
+  };
 
   return (
     <>
@@ -38,7 +45,7 @@ function Header(props) {
               </li>
             )}
 
-            {pathname.includes("/instructor") && (
+            {pathname.toLowerCase().includes("/instructor") && (
               <>
                 <li className="nav-item m-auto">
                   <Link to="/instructor" className="text-decoration-none">
@@ -53,7 +60,7 @@ function Header(props) {
               </>
             )}
 
-            {pathname.includes("/client") && (
+            {pathname.toLowerCase().includes("/client") && (
               <>
                 <li className="nav-item m-auto">
                   <Link to="/client/upcoming" className="text-decoration-none">
@@ -70,7 +77,11 @@ function Header(props) {
 
             {pathname !== "/" && pathname !== "/register" && (
               <li className="nav-item m-auto">
-                <Link to="/" className="text-decoration-none">
+                <Link
+                  to="/"
+                  className="text-decoration-none"
+                  onClick={handleLogout}
+                >
                   <a className="nav-link">Logout</a>
                 </Link>
               </li>
@@ -86,4 +97,4 @@ function Header(props) {
   );
 }
 
-export default Header;
+export default connect(null, { setCurrentUser })(Header);

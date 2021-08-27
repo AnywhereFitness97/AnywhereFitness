@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/actions";
+import { registerUser, setCurrentUser } from "../../actions/actions";
 import Logo from "../../assets/fitness_logo.svg";
-import { Link } from "react-router-dom";
 
 const initialFormValues = {
   first_name: "",
@@ -69,9 +68,8 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(props);
-    console.log(formValues);
     props.registerUser(formValues);
+    props.setCurrentUser(formValues);
     if (formValues.role === "client") props.history.push("/client");
     if (formValues.role === "Instructor") props.history.push("/instructor");
   };
@@ -122,8 +120,8 @@ const Register = (props) => {
             {" "}
             Role
             <select name="role" value={formValues.role} onChange={handleChange}>
-              <option name="client">Client</option>
-              <option name="instructor">Instructor</option>
+              <option name="Client">Client</option>
+              <option name="Instructor">Instructor</option>
             </select>
             <div className="error register-error">{formErrors.role}</div>
           </label>
@@ -174,4 +172,4 @@ const Register = (props) => {
   );
 };
 
-export default connect(null, { registerUser })(Register);
+export default connect(null, { registerUser, setCurrentUser })(Register);

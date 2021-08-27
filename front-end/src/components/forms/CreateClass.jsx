@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import LocationBar from "./LocationBarCreateClass";
+import { connect } from "react-redux";
+import { addNewClass, updateCurrentUser } from "../../actions/actions";
+import randId from "../../utils/randomIdGen";
+import "../../App.css";
+import Logo from "../../assets/personal_trainer.svg";
 
-const CreateClass = () => {
-  const [name, setName] = useState("");
-  const [classDescription, setClassDescription] = useState("");
-  const [classType, setClassType] = useState("");
-  const [days, setDays] = useState("");
-  const [time, setTime] = useState("");
-  const [duration, setDuration] = useState("");
-  const [intensityLevel, setIntensityLevel] = useState("");
-  const [location, setLocation] = useState("");
-  const [numberOfAttendees, setNumberOfAttendees] = useState("");
+const CreateClass = (props) => {
   const [formData, setFormData] = useState({});
 
   const formSchema = yup.object().shape({
@@ -75,38 +72,43 @@ const CreateClass = () => {
       valueToUse = e.target.checked;
     }
     setFormData({ ...formData, [e.target.name]: valueToUse });
+    console.log(props);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    props.addNewClass({
+      ...formData,
+      id: randId(),
+      instructor_id: props.currentUser.id,
+    });
   };
 
+  useEffect(() => {
+    props.updateCurrentUser();
+  }, [props.users.find((user) => user.id === props.currentUser.id)]);
+
   return (
-    <div>
-      <h1>Create Class</h1>
-      <div className="classForm">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Class Name</label>
-            <input
-              type="text"
-              value={formData.class_name}
-              onChange={onChange}
-              name="class_name"
-            />
-          </div>
-          <div>
-            <label>Class Description</label>
-            <input
-              type="text"
-              value={formData.description}
-              onChange={onChange}
-              name="description"
-            />
-          </div>
-          <div>
-            <label>
+    <section className="py-5">
+      <div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="class-form d-flex flex-column ms-xl-4"
+        >
+          <h1>Create Class</h1>
+
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
+              Class Name
+              <input
+                type="text"
+                value={formData.class_name}
+                onChange={onChange}
+                name="class_name"
+              />
+            </label>
+
+            <label className="d-flex flex-column half">
               {" "}
               Class Type:
               <select
@@ -134,82 +136,18 @@ const CreateClass = () => {
             </label>
           </div>
 
-          <div>
-            <label>Days of Class</label>
+          <label className="d-flex flex-column">
+            Class Description
             <input
-              type="checkbox"
-              name="sunday"
+              type="text"
+              value={formData.description}
               onChange={onChange}
-              checked={formData.sunday}
-            />{" "}
-            Sun
-            <br />
-            <input
-              type="checkbox"
-              name="monday"
-              onChange={onChange}
-              checked={formData.monday}
-            />{" "}
-            Mon
-            <br />
-            <input
-              type="checkbox"
-              name="tuesday"
-              onChange={onChange}
-              checked={formData.tuesday}
-            />{" "}
-            Tue
-            <br />
-            <input
-              type="checkbox"
-              name="wednesday"
-              onChange={onChange}
-              checked={formData.wednesday}
-            />{" "}
-            Wed
-            <br />
-            <input
-              type="checkbox"
-              name="thursday"
-              onChange={onChange}
-              checked={formData.thursday}
-            />{" "}
-            Thurs
-            <br />
-            <input
-              type="checkbox"
-              name="friday"
-              onChange={onChange}
-              checked={formData.friday}
-            />{" "}
-            Fri
-            <br />
-            <input
-              type="checkbox"
-              name="saturday"
-              onChange={onChange}
-              checked={formData.saturday}
-            />{" "}
-            Sat
-            <br />
-          </div>
-          <div>
-            <label>Class Time</label>
-            <input
-              type="time"
-              //   value={time}
-              onChange={onChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-              name="time"
+              name="description"
             />
-          </div>
-          <div>
-            <label>
+          </label>
+
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column half">
               {" "}
               Class Duration:
               <select
@@ -217,7 +155,7 @@ const CreateClass = () => {
                 type="dropdown"
                 value={formData.duration}
                 onChange={onChange}
-                name="duration"
+                name="class_duration"
               >
                 <option>--Duration--</option>
                 <option>30 Minutes</option>
@@ -229,16 +167,15 @@ const CreateClass = () => {
                 <option>120 Minutes</option>
               </select>
             </label>
-          </div>
-          <div>
-            <label>
+
+            <label className="d-flex flex-column half">
               {" "}
               Intensity Level:
               <select
                 type="dropdown"
                 value={formData.intensity}
                 onChange={onChange}
-                name="intensity"
+                name="class_intensity_level"
               >
                 <option>--Intensity--</option>
                 <option>Low</option>
@@ -248,17 +185,37 @@ const CreateClass = () => {
               </select>
             </label>
           </div>
-          <div>
-            <label>Location</label>
-            <input
-              type="text"
-              value={formData.location}
-              onChange={onChange}
-              name="location"
-            />
-          </div>
-          <div>
-            <label>
+          <label>
+            Location
+            <LocationBar setFormData={setFormData} formData={formData} />
+          </label>
+          <div className="d-flex justify-content-between">
+            <label className="d-flex flex-column third">
+              Class Date
+              <input
+                type="date"
+                name="class_date"
+                value={formData.class_date}
+                onChange={onChange}
+              />
+            </label>
+            <label className="d-flex flex-column third">
+              Class Time
+              <input
+                type="time"
+                //   value={time}
+                onChange={onChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+                name="class_time"
+              />
+            </label>
+
+            <label className="d-flex flex-column third">
               {" "}
               Class Size:
               <input
@@ -269,11 +226,22 @@ const CreateClass = () => {
               />
             </label>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn btn-primary align-self-end ">
+            Submit
+          </button>
         </form>
+        <img src={Logo} className="class-form-logo d-none d-sm-block me-xl-4" />
       </div>
-    </div>
+    </section>
   );
 };
 
-export default CreateClass;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, { addNewClass, updateCurrentUser })(
+  CreateClass
+);

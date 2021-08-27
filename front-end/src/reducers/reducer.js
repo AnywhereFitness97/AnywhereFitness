@@ -1,14 +1,21 @@
-import { REGISTER_USER } from "../actions/actions.js";
+import randId from "../utils/randomIdGen";
+import {
+  REGISTER_USER,
+  SET_CURRENT_USER,
+  UPDATE_CURRENT_USER,
+  ADD_NEW_CLASS,
+  UPDATE_CLASS,
+  DELETE_CLASS,
+  REGISTER_FOR_CLASS,
+  UNREGISTER,
+} from "../actions/actions.js";
 
 const initialState = {
-  newmember: {
-    first_name: "",
-    last_name: "",
-    email: "",
+  users: [],
+  classes: [],
+  currentUser: {
+    role: "",
   },
-  username: "",
-  password: "",
-  auth_key: undefined,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -16,14 +23,132 @@ export const reducer = (state = initialState, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        newmember: {
-          first_name: action.payload.first_name,
-          last_name: action.payload.last_name,
-          email: action.payload.email,
+        users: [
+          ...state.users,
+          {
+            first_name: action.payload.first_name,
+            last_name: action.payload.last_name,
+            email: action.payload.email,
+            username: action.payload.username,
+            password: action.payload.password,
+            auth_key: action.payload.auth_key,
+            role: action.payload.role,
+            id: randId(),
+            classes: [],
+          },
+        ],
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: state.users.find(
+          (cur) =>
+            cur.username === action.payload.username &&
+            cur.password === action.payload.password
+        ),
+      };
+    case UPDATE_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: state.users.find((cur) => cur.id === state.currentUser.id),
+      };
+    case ADD_NEW_CLASS:
+      return {
+        ...state,
+        classes: [...state.classes, action.payload],
+        users: state.users.map((cur) => {
+          if (cur.id === action.payload.instructor_id) {
+            return { ...cur, classes: [...cur.classes, action.payload] };
+          } else {
+            return cur;
+          }
+        }),
+      };
+    case UPDATE_CLASS:
+      return {
+        ...state,
+        classes: state.classes.map((cur) => {
+          if (cur.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return cur;
+          }
+        }),
+        users: state.users.map((cur) => {
+          if (cur.id === action.payload.instructor_id) {
+            return {
+              ...cur,
+              classes: cur.classes.map((class_) => {
+                if (class_.id === action.payload.id) {
+                  return action.payload;
+                } else {
+                  return class_;
+                }
+              }),
+            };
+          } else {
+            return cur;
+          }
+        }),
+      };
+    case DELETE_CLASS:
+      return {
+        ...state,
+        classes: state.classes.filter(
+          (_class) => _class.id !== action.payload.id
+        ),
+        users: state.users.map((user) => {
+          if (user.id === action.payload.instructor_id) {
+            return {
+              ...user,
+              classes: user.classes.filter(
+                (_class) => _class.id !== action.payload.id
+              ),
+            };
+          } else {
+            return user;
+          }
+        }),
+      };
+    case REGISTER_FOR_CLASS:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          classes: [...state.currentUser.classes, action.payload],
         },
-        username: action.payload.username,
-        password: action.payload.password,
-        auth_key: action.payload.auth_key,
+        users: state.users.map((user) => {
+          if (user.id === state.currentUser.id) {
+            return {
+              ...state.currentUser,
+              classes: [...state.currentUser.classes, action.payload],
+            };
+          } else {
+            return user;
+          }
+        }),
+      };
+    case UNREGISTER:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          classes: state.currentUser.classes.filter((_class) => {
+            return _class.id !== action.payload.id;
+          }),
+        },
+        users: state.users.map((user) => {
+          if (user.id === state.currentUser.id) {
+            return {
+              ...state.currentUser,
+              classes: state.currentUser.classes.filter((_class) => {
+                return _class.id !== action.payload.id;
+              }),
+            };
+          } else {
+            return user;
+          }
+        }),
       };
     default:
       return state;

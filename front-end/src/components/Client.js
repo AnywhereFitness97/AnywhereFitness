@@ -2,6 +2,8 @@ import React from "react";
 import dummyData from "../dummyData";
 import AvailableClassCard from "./AvailableClassCard";
 import {useState} from 'react'
+import LocationBarSearch from "./forms/LocationBarSearch";
+import { connect } from "react-redux";
 
 function Client(props) {
 const {data} = props;
@@ -11,6 +13,7 @@ const {data} = props;
      
     
     <section className="py-4">
+      <LocationBarSearch />
       <div className="container">
         <div className="d-flex flex-wrap">
           {data && data.map((card) => (
@@ -27,4 +30,10 @@ const {data} = props;
   );
 }
 
-export default Client;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps)(Client);

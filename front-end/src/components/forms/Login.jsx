@@ -84,24 +84,26 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button, Paper, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../actions/actions";
 
-const Login = () => {
+const Login = (props) => {
+  const dispatch = useDispatch();
   // Initial Values
   const initialLogin = {
     username: "",
     password: "",
-    role: "",
   };
 
   const initialErrors = {
     username: "",
     password: "",
-    role: "",
   };
   ////////////////
 
   ///// State
-  const [user, setUser] = useState(initialLogin);
+  const [credentials, setCredentials] = useState(initialLogin);
   const [errors, setErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(true);
 
@@ -120,26 +122,41 @@ const Login = () => {
   ////// Event Handlers
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
+    setCredentials({ ...credentials, [name]: value });
     setLoginErrors(name, value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    props.setCurrentUser(credentials);
+    if (!props.currentUser) return;
+    props.history.push(`/${props.currentUser.role}`);
   };
   ////////////
 
   //// Validation
   const schema = yup.object().shape({
     username: yup.string().required("Please enter username"),
-    // .min(3, "Username must be at least 3 characters"),
     password: yup.string().required("Please enter password"),
-    // .min(3, "Password must be at least 3 characters"),
   });
 
   useEffect(() => {
-    schema.isValid(user).then((valid) => setDisabled(!valid));
-  }, [user]);
+    schema.isValid(credentials).then((valid) => setDisabled(!valid));
+  }, [credentials]);
+
+  useEffect(() => {
+    if (props.currentUser == undefined) {
+      console.log("no current user");
+      return;
+    }
+    if (props.currentUser.role == "Instructor") {
+      props.history.push(`/instructor`);
+    } else if (props.currentUser.role == "Client") {
+      props.history.push(`/client`);
+    } else {
+      console.log("no current user");
+    }
+  }, [props.currentUser]);
   /////////
 
   /////// CSS/ Styling
@@ -157,7 +174,7 @@ const Login = () => {
   return (
     <div>
       <Paper elevation={10} style={paperstyle}>
-        <form style={style} onSubmit={(event) => handleSubmit(event)}>
+        <form style={style} onSubmit={handleSubmit}>
           <div style={{ color: "red" }}>
             <div>{errors.username}</div>
             <div>{errors.password}</div>
@@ -174,8 +191,8 @@ const Login = () => {
             <input
               name="username"
               type="text"
-              onChange={(event) => handleChange(event)}
-              value={user.username}
+              onChange={handleChange}
+              value={credentials.username}
               placeholder="Username"
               style={style}
             />
@@ -183,8 +200,8 @@ const Login = () => {
             <input
               name="password"
               type="password"
-              onChange={(event) => handleChange(event)}
-              value={user.password}
+              onChange={handleChange}
+              value={credentials.password}
               placeholder="Password"
               style={style}
             />
@@ -193,6 +210,7 @@ const Login = () => {
               variant="contained"
               color="primary"
               disabled={disabled}
+              type="submit"
             >
               Sign In
             </Button>
@@ -213,6 +231,10 @@ const Login = () => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser,
+  };
+};
 
-
-export default Login;
+export default connect(mapStateToProps, { setCurrentUser })(Login);
