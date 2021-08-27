@@ -10,7 +10,10 @@ import UpdateForm from "./components/forms/UpdateForm";
 import UpcomingClasses from "./components/UpcomingClasses";
 import { Route, Switch } from "react-router-dom";
 
+
 function App() {
+
+
   return (
     <div className="AppContainer">
       <Header />
@@ -24,6 +27,7 @@ function App() {
         <Route exact path="/instructor" component={Instructor} />
         <Route exact path="/instructor/add" component={CreateClass} />
         <Route exact path="/instructor/:id" component={UpdateForm} />
+      
       </Switch>
     </div>
   );

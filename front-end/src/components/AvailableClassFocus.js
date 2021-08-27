@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import dummyData from "../dummyData";
 
 
+
 function AvailableClassFocus(props) {
   const { id } = useParams();
   const card = dummyData.find((card) => card.id === parseInt(id));
@@ -24,6 +25,9 @@ function AvailableClassFocus(props) {
       <p>{card.class_duration}</p>
       <p>Cost: </p>
       <button className="btn btn-primary">Register</button>
+
+
+      
     </div>
     
   );

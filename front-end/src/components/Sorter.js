@@ -1,49 +1,105 @@
 import React from "react";
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown';
-
+import dummyData from "../dummyData";
+import { useState, useEffect } from "react";
+import Client from "./Client";
 
 export default function Sorter() {
-  
-      
-    
+  const [data, setData] = useState(dummyData);
+  const [classType, setClassType] = useState();
+  const [time, setTime] = useState();
+  const [name, setName] = useState();
+  const [intensity, setIntensity] = useState();
+  const [date, setDate] = useState();
+
+  useEffect(() => {
+    const filtersToApply = [classType, time, name, intensity, date].filter(
+      (ele) => !!ele
+    );
+
+    setData(
+      dummyData.filter((data) => {
+        //first we want to get the items in the object
+        const vals = Object.values(data);
+
+        // then we want to see if all of the filtered items are in the values arr
+        return (
+          filtersToApply.every((filteredItem) => {
+            return vals.includes(filteredItem);
+          }) === true
+        );
+      })
+    );
+  }, [classType, time, name, intensity, date]);
+
   return (
-     
+    <div className="dropdown">
+      <select
+        name="class_type"
+        onChange={(event) => setClassType(event.target.value)}
+      >
+        <option value="">Class</option>
+        <option name="class_type" value="Kickboxing">
+          Kickboxing{" "}
+        </option>
+        <option name="class_type" value="Crossfit">
+          Crossfit{" "}
+        </option>
+      </select>
 
-    <>
-  <DropdownButton id="dropdown-basic-button" title="Class">
-  <Dropdown.Item href="#/#">Kickboxing</Dropdown.Item>
-  <Dropdown.Item href="#/#">Boxing</Dropdown.Item>
-</DropdownButton>
+      <select
+        name="class_time"
+        onChange={(event) => setTime(event.target.value)}
+      >
+        <option value="">Time</option>
+        <option name="class_type" value="7:00 am">
+          7:00am{" "}
+        </option>
+        <option name="class_type" value="9:00 am">
+          9:00am{" "}
+        </option>
+      </select>
 
-<DropdownButton id="dropdown-basic-button" title="Intensity">
-  <Dropdown.Item href="#/#">Low</Dropdown.Item>
-  <Dropdown.Item href="#/#">Medium</Dropdown.Item>
-</DropdownButton>
+      <select
+        name="class_date"
+        onChange={(event) => setDate(event.target.value)}
+      >
+        <option value="">Date</option>
+        <option value="August 2nd">August 2nd </option>
+        <option value="August 3rd">August 3rd</option>
+      </select>
 
-<DropdownButton id="dropdown-basic-button" title="Duration">
-  <Dropdown.Item href="#/#">30 Minutes</Dropdown.Item>
-  <Dropdown.Item href="#/#">45 Minutes</Dropdown.Item>
-</DropdownButton>
+      <select
+        name="class_duration"
+        onChange={(event) => setTime(event.target.value)}
+      >
+        <option value="">Duration</option>
+        <option value="30 minutes">30 minutes</option>
+        <option value="45 minutes">45 minutes </option>
+      </select>
 
+      <select
+        name="class_intensity_level"
+        onChange={(event) => setIntensity(event.target.value)}
+      >
+        <option value="">Intensity</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+      </select>
 
-<DropdownButton id="dropdown-basic-button" title="Distance">
-  <Dropdown.Item href="#/#">Kickboxing</Dropdown.Item>
-  <Dropdown.Item href="#/#">Boxing</Dropdown.Item>
-</DropdownButton>
-
-
-<DropdownButton id="dropdown-basic-button" title="Time">
-  <Dropdown.Item href="#/#">7:00 am</Dropdown.Item>
-  <Dropdown.Item href="#/#">9:00 am</Dropdown.Item>
-</DropdownButton>
-
-
-<DropdownButton id="dropdown-basic-button" title="Date">
-  <Dropdown.Item href="#/#">August 2nd</Dropdown.Item>
-  <Dropdown.Item href="#/#">August 3rd</Dropdown.Item>
-</DropdownButton>
-
-    </>
+      <select
+        name="class_name"
+        onChange={(event) => setName(event.target.value)}
+      >
+        <option value="">Name</option>
+        <option value="A Class">A Class</option>
+        <option value="B Class">B Class</option>
+        <option value="C Class">C Class</option>
+        <option value="D Class">D Class</option>
+        <option value="E Class">E Class</option>
+        <option value="F Class">F Class</option>
+        <option value="G Class">G Class</option>
+      </select>
+      <Client data={data} />
+    </div>
   );
 }
