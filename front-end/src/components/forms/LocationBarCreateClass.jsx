@@ -41,7 +41,7 @@ function LocationBar(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
           return (
-            <form>
+            <div>
               <div className="m-auto" style={{ width: "100%" }}>
                 <div className="d-flex justify-content-between">
                   <input
@@ -84,7 +84,7 @@ function LocationBar(props) {
                   })}
                 </div>
               </div>
-            </form>
+            </div>
           );
         }}
       </PlacesAutocomplete>
