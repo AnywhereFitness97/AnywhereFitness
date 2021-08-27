@@ -4,7 +4,12 @@ import dummyData from "../../dummyData";
 import { connect } from "react-redux";
 import LocationBar from "./LocationBarCreateClass";
 import Logo from "../../assets/edit_logo.svg";
-import { updateClass, updateCurrentUser } from "../../actions/actions";
+import {
+  updateClass,
+  updateCurrentUser,
+  getClasses,
+} from "../../actions/actions";
+import axios from "axios";
 
 const initialFormErrors = {
   class_name: "",
@@ -30,11 +35,28 @@ const FormSchema = yup.object().shape({
 
 const UpdateForm = (props) => {
   const id = props.match.params.id;
-  const initialFormData = props.currentUser.classes.find(
-    (card) => card.id == id
+  console.log(id);
+  console.log(props.classes);
+  const initialFormData = props.classes.find(
+    (card) => card.classId == parseInt(id)
   );
 
-  const [formData, setFormData] = useState(initialFormData);
+  if (initialFormData.class_am_or_pm === "pm") {
+    const newTime =
+      (parseInt(initialFormData.class_time) + 12).toString() +
+      ":" +
+      initialFormData.class_time[2].toString() +
+      initialFormData.class_time[3].toString();
+    initialFormData.class_time = newTime;
+  }
+
+  console.log(initialFormData);
+
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    class_duration: initialFormData.class_duration.toString() + " Minutes",
+  });
+  // const [formData, setFormData] = useState();
   const [formErrors, setFormErrors] = useState(initialFormErrors);
 
   const validate = (name, value) => {
@@ -51,14 +73,63 @@ const UpdateForm = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    props.updateClass(formData);
-    props.updateCurrentUser();
+    // props.updateClass(formData);
+    // props.updateCurrentUser();
+
+    if (parseInt(formData.class_time) > 12) {
+      formData.class_time =
+        (parseInt(formData.class_time) - 12).toString() +
+        formData.class_time[2] +
+        formData.class_time[3] +
+        formData.class_time[4];
+      formData.class_am_or_pm = "pm";
+    } else {
+      formData.class_am_or_pm = "am";
+    }
+    formData.class_instructor_username = props.currentUser.username;
+    formData.class_cost = 15;
+    formData.class_duration = parseInt(formData.class_duration);
+    formData.max_class_size = Number(formData.max_class_size);
+
+    delete formData.classId;
+    delete formData.class_client_list_id;
+    delete formData.max_class_size;
+
+    console.log(formData);
+
+    axios
+      .put(
+        `https://anywherefitnessapis.herokuapp.com/api/v1/class/${id}`,
+        formData
+      )
+      .then((res) => {
+        props.getClasses();
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    // const response = await axios.post(
+    //   "https://anywherefitnessapis.herokuapp.com/api/v1/class/",
+    //   formData
+    // );
+    // console.log(response);
+    // axios
+    //   .get("https://anywherefitnessapis.herokuapp.com/api/v1/class/")
+    //   .then((res) => {
+    //     console.log(res);
+    //     props.setClasses(res.data.allClasses);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
+  // useEffect(() => {
+  //   console.log(initialFormData);
+  // });
   useEffect(() => {
-    console.log(initialFormData);
-  });
+    console.log("classes changed");
+  }, [props.classes]);
   return (
     <section className="py-5">
       <div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">
@@ -111,7 +182,7 @@ const UpdateForm = (props) => {
             Class Description
             <input
               type="text"
-              value={formData.description}
+              value={formData.class_description}
               onChange={onChange}
               name="description"
             />
@@ -161,7 +232,7 @@ const UpdateForm = (props) => {
             <LocationBar
               setFormData={setFormData}
               formData={formData}
-              editClassLocation={formData.class_location.address}
+              editClassLocation={formData.class_location}
             />
           </label>
           <div className="d-flex justify-content-between">
@@ -195,9 +266,9 @@ const UpdateForm = (props) => {
               Class Size:
               <input
                 type="number"
-                value={formData.class_size}
+                value={formData.max_class_size}
                 onChange={onChange}
-                name="class_size"
+                name="max_class_size"
               />
             </label>
           </div>
@@ -309,4 +380,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   updateClass,
   updateCurrentUser,
+  getClasses,
 })(UpdateForm);
