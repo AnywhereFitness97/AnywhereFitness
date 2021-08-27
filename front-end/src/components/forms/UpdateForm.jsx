@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import dummyData from "../../dummyData";
 import { connect } from "react-redux";
 import LocationBar from "./LocationBarCreateClass";
 import Logo from "../../assets/edit_logo.svg";
@@ -38,7 +37,7 @@ const UpdateForm = (props) => {
   console.log(id);
   console.log(props.classes);
   const initialFormData = props.classes.find(
-    (card) => card.classId == parseInt(id)
+    (card) => card.classId === parseInt(id)
   );
 
   if (initialFormData.class_am_or_pm === "pm") {
@@ -276,7 +275,11 @@ const UpdateForm = (props) => {
             Submit
           </button>
         </form>
-        <img src={Logo} className="class-form-logo d-none d-sm-block me-xl-4" />
+        <img
+          src={Logo}
+          className="class-form-logo d-none d-sm-block me-xl-4"
+          alt="people working together"
+        />
       </div>
     </section>
   );

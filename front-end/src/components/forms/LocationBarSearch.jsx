@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -19,6 +19,7 @@ function LocationBar(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hgi");
+    console.log(coordinates);
   };
   return (
     <div>
@@ -44,6 +45,7 @@ function LocationBar(props) {
                       src={searchLogo}
                       style={{ cursor: "pointer" }}
                       type="submit"
+                      alt="magnifying glass icon"
                     />
                   </button>
                 </div>

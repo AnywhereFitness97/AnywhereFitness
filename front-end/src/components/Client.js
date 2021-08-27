@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import dummyData from "../dummyData";
+import React, { useEffect } from "react";
 import AvailableClassCard from "./AvailableClassCard";
 import LocationBarSearch from "./forms/LocationBarSearch";
 import { connect } from "react-redux";
 import { setClasses, getClasses } from "../actions/actions";
-import axios from "axios";
 
 function Client(props) {
+  const { getClasses } = props;
   useEffect(() => {
-    props.getClasses();
-  }, []);
+    getClasses();
+  }, [getClasses]);
   return (
     <section className="py-4">
       <LocationBarSearch />

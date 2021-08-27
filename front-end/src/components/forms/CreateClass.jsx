@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import LocationBar from "./LocationBarCreateClass";
 import { connect } from "react-redux";
@@ -7,7 +7,6 @@ import {
   updateCurrentUser,
   setClasses,
 } from "../../actions/actions";
-import randId from "../../utils/randomIdGen";
 import "../../App.css";
 import axios from "axios";
 import Logo from "../../assets/personal_trainer.svg";
@@ -70,6 +69,7 @@ const CreateClass = (props) => {
     location: yup.string().max(50, "Shorten your message to 50 chars"),
     class_size: yup.number(),
   });
+  console.log(formSchema);
 
   const onChange = (e) => {
     let valueToUse = e.target.value;
@@ -95,10 +95,6 @@ const CreateClass = (props) => {
     formData.class_instructor_username = props.currentUser.username;
     formData.class_cost = 15;
     formData.class_duration = parseInt(formData.class_duration);
-    // delete formData.class_size;
-    // delete formData.class_location_lat;
-    // delete formData.class_location_long;
-
     console.log(formData);
     const response = await axios.post(
       "https://anywherefitnessapis.herokuapp.com/api/v1/class/",
@@ -114,17 +110,7 @@ const CreateClass = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    // props.addNewClass({
-    //   ...formData,
-    //   id: randId(),
-    //   instructor_id: props.currentUser.id,
-    // });
   };
-
-  // useEffect(() => {
-  //   props.updateCurrentUser();
-  // }, [props.users.find((user) => user.id === props.currentUser.id)]);
-
   return (
     <section className="py-5">
       <div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">
@@ -267,7 +253,11 @@ const CreateClass = (props) => {
             Submit
           </button>
         </form>
-        <img src={Logo} className="class-form-logo d-none d-sm-block me-xl-4" />
+        <img
+          src={Logo}
+          className="class-form-logo d-none d-sm-block me-xl-4"
+          alt="people working out"
+        />
       </div>
     </section>
   );

@@ -174,7 +174,11 @@ const Register = (props) => {
             Submit
           </button>
         </form>
-        <img src={Logo} className="register-logo d-sm-block d-none" />
+        <img
+          src={Logo}
+          className="register-logo d-sm-block d-none"
+          id="fitness related icon"
+        />
       </div>
     </section>
   );

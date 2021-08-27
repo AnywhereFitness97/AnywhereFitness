@@ -155,13 +155,13 @@ const Login = (props) => {
   }, [credentials]);
 
   useEffect(() => {
-    if (props.currentUser == undefined) {
+    if (props.currentUser === undefined) {
       console.log("no current user");
       return;
     } else {
-      if (props.currentUser.role == "Instructor") {
+      if (props.currentUser.role === "Instructor") {
         props.history.push(`/instructor`);
-      } else if (props.currentUser.role == "Client") {
+      } else if (props.currentUser.role === "Client") {
         props.history.push(`/client`);
       } else {
         console.log("no current user");

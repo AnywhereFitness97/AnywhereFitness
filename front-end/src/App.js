@@ -15,17 +15,18 @@ import { connect } from "react-redux";
 import { setUsers } from "./actions/actions";
 
 function App(props) {
+  const { setUsers } = props;
   useEffect(() => {
     axios
       .get("https://anywherefitnessapis.herokuapp.com/api/v1/user/userinfo")
       .then((res) => {
         console.log(res);
-        props.setUsers(res.data.Members_Info);
+        setUsers(res.data.Members_Info);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [setUsers]);
   return (
     <div className="AppContainer">
       <Header />
