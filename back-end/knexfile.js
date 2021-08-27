@@ -30,11 +30,13 @@ const sharedConfig = {
 module.exports = {
   development: {
     ...sharedConfig,
-    connection: process.env.DEV_DATABASE_URL,
+    // connection: process.env.DEV_DATABASE_URL,
+    connection: process.env.PGHOST,
   },
   testing: {
     ...sharedConfig,
-    connection: process.env.TESTING_DATABASE_URL,
+    // connection: process.env.TESTING_DATABASE_URL,
+    connection: process.env.PGHOST,
   },
   production: {
     ...sharedConfig,

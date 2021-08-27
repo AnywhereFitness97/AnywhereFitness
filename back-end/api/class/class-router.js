@@ -1,8 +1,14 @@
 const server = require("express").Router();
 const classModel = require("./class-model");
 
+const {	
+	makeSureTheyAreInstructor,	
+	validationClassFields
+} = require("./class-middleware");
+
 // Get All Classes
 server.get("/", (req, res, next) => {
+	console.log("request", req.body)
 	classModel
 		.getClasses()
 		.then((classes) => {
@@ -36,7 +42,7 @@ server.get("/:id", (req, res, next) => {
 // Get a List of Classes Instructor Created
 server.post;
 // Create Class
-server.post("/", (req, res, next) => {
+server.post("/", makeSureTheyAreInstructor, validationClassFields, (req, res, next) => {
 	const {
 		class_name,
 		class_time,
@@ -79,7 +85,7 @@ server.post("/", (req, res, next) => {
 		.catch((error) => next(error));
 });
 // Update Class by Id
-server.put("/:id", (req, res, next) => {
+server.put("/:id", makeSureTheyAreInstructor, (req, res, next) => {
 	const { id } = req.params;
 	const {
 		class_name,
@@ -125,7 +131,7 @@ server.put("/:id", (req, res, next) => {
 		.catch((error) => next(error));
 });
 // Delete CLass
-server.delete("/:id", (req, res, next) => {
+server.delete("/:id", makeSureTheyAreInstructor, (req, res, next) => {
 	const { id } = req.params;
 	classModel
 		.deleteClass(id)

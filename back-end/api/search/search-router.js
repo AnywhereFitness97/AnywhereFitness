@@ -1,7 +1,12 @@
 const server = require("express").Router();
 const searchModel = require("./search-model");
+const {	
+	makeSureTheyAreAClient,
+	validationSearchableItemField,
+} = require("./search-middleware");
 
-server.post("/classname", (req, res, next) => {
+
+server.post("/classname", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 
 	searchModel
@@ -23,10 +28,10 @@ server.post("/classname", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/date", (req, res, next) => {
+server.post("/date", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
-		.searchDatabaseByClassName(searchItem)
+		.searchDatabaseByDate(searchItem)
 		.then((searchResult) => {
 			const searchResultCount = searchResult.length;
 			if (searchResultCount === 0) {
@@ -44,7 +49,7 @@ server.post("/date", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/instructorusername", (req, res, next) => {
+server.post("/instructorusername", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByInstructorUsername(searchItem)
@@ -65,7 +70,7 @@ server.post("/instructorusername", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/instructorfirstname", (req, res, next) => {
+server.post("/instructorfirstname", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByInstructorFirstname(searchItem)
@@ -87,7 +92,7 @@ server.post("/instructorfirstname", (req, res, next) => {
 		});
 });
 
-server.post("/clientusername", (req, res, next) => {
+server.post("/clientusername", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByClientUsername(searchItem)
@@ -108,7 +113,7 @@ server.post("/clientusername", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/clientfirstname", (req, res, next) => {
+server.post("/clientfirstname", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByClientFirstname(searchItem)
@@ -135,7 +140,7 @@ server.post("/clientfirstname", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/time", (req, res, next) => {
+server.post("/time", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByTime(searchItem)
@@ -156,7 +161,7 @@ server.post("/time", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/location", (req, res, next) => {
+server.post("/location", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByLocation(searchItem)
@@ -177,7 +182,7 @@ server.post("/location", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/type", (req, res, next) => {
+server.post("/type", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByIntensityLevel(searchItem)
@@ -198,7 +203,7 @@ server.post("/type", (req, res, next) => {
 			next(error);
 		});
 });
-server.post("/IntensityLevel", (req, res, next) => {
+server.post("/IntensityLevel", makeSureTheyAreAClient, validationSearchableItemField, (req, res, next) => {
 	const { searchItem } = req.body;
 	searchModel
 		.searchDatabaseByClassName(searchItem)

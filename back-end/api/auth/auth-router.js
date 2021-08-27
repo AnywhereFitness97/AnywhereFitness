@@ -42,6 +42,7 @@ server.post("/register", (req, res, next) => {
 server.post("/login", checkUserExists, (req, res, next) => {
 	// Given from the User
 	const loginPassword = req.body.password;
+	
 	// Found User By MiddleWare That Matches Username
 	const userID = req.newUser.userid;
 	const firstname = req.newUser.first_name;
@@ -60,8 +61,9 @@ server.post("/login", checkUserExists, (req, res, next) => {
 		password,
 		role,
 	};
-	// Compare Encrypted password with the one given by user
+	// Compare Encrypted password with the one given by user	
 	if (bcryptjs.compareSync(loginPassword, password)) {
+		console.log("user", user)
 		const token = makeToken(user);
 		res.status(200).json({
 			message: `Welcome back ${user.firstname}, Here is your AccessToken`,
