@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dummyData from "../dummyData";
 import { connect } from "react-redux";
-import { unregister } from "../actions/actions";
+import { unregister, setClientClasses } from "../actions/actions";
+import axios from "axios";
 
 function UpcomingClasses(props) {
+  useEffect(() => {
+    axios
+      .get("https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/")
+      .then((res) => {
+        console.log(res);
+        console.log();
+        const clientList = res.data.allClassLists.filter((cur) => {
+          return cur.usersId === props.currentUser.userID;
+        });
+        clientList.forEach(
+          (item) =>
+            (item.class = props.classes.find(
+              (_class) => _class.classId === item.class_id
+            ))
+        );
+        props.setClientClasses(clientList);
+        console.log(clientList);
+        console.log(props);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div>
-      {props.currentUser.classes.map((card) => {
+      {props.clientClasses.map((item) => {
         const handleUnregister = () => {
           console.log("unregister");
-          props.unregister({ id: card.id, instructor_id: card.instructor_id });
+          console.log(item);
+          // props.unregister({ id: card.id, instructor_id: card.instructor_id });
         };
         return (
           <div className="container my-2 bg-secondary border">
@@ -23,17 +46,17 @@ function UpcomingClasses(props) {
               </div>
               <div className="me-5 pe-5 ps-2 flex-grow-1">
                 <div className="inst-card-text-top ">
-                  <h2>{card["class_name"]}</h2>
-                  <h3>{card["class_type"]}</h3>
+                  <h2>{item.class["class_name"]}</h2>
+                  <h3>{item.class["class_type"]}</h3>
                 </div>
                 <br />
                 <div className="d-flex justify-content-between">
-                  <p>{card["class_date"]}</p>
-                  <p>{card["class_time"]}</p>
-                  <p>{card["class_duration"]}</p>
+                  <p>{item.class["class_date"]}</p>
+                  <p>{item.class["class_time"]}</p>
+                  <p>{item.class["class_duration"]}</p>
                 </div>
                 <div>
-                  <p>Intensity: {card["class_intensity_level"]}</p>
+                  <p>Intensity: {item.class["class_intensity_level"]}</p>
                   <p>Cost: $15</p>
                 </div>
               </div>
@@ -65,4 +88,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { unregister })(UpcomingClasses);
+export default connect(mapStateToProps, { unregister, setClientClasses })(
+  UpcomingClasses
+);

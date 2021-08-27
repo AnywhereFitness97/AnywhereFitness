@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import axios from "axios";
 import "./App.css";
 import Register from "./components/forms/Register";
 import Login from "./components/forms/Login";
@@ -9,8 +11,21 @@ import AvailableClassFocus from "./components/AvailableClassFocus";
 import UpdateForm from "./components/forms/UpdateForm";
 import UpcomingClasses from "./components/UpcomingClasses";
 import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { setUsers } from "./actions/actions";
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    axios
+      .get("https://anywherefitnessapis.herokuapp.com/api/v1/user/userinfo")
+      .then((res) => {
+        console.log(res);
+        props.setUsers(res.data.Members_Info);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="AppContainer">
       <Header />
@@ -29,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { setUsers })(App);

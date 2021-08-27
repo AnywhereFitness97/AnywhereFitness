@@ -135,17 +135,11 @@ const Login = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     props.login(credentials);
-    // console.log(credentials);
-    // props.setIsFetchingTrue();
-    // const response = await axios.post(
-    //   "https://anywherefitnessapis.herokuapp.com/api/v1/auth/login",
-    //   credentials
-    // );
-    // props.setIsFetchingFalse();
-
-    // props.setCurrentUser(credentials);
-    // if (!props.currentUser) return;
-    // props.history.push(`/${props.currentUser.role}`);
+    props.setCurrentUser(
+      props.users.find((user) => {
+        return user.username === credentials.username;
+      })
+    );
   };
   ////////////
 
@@ -253,7 +247,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser,
+    ...state,
   };
 };
 
