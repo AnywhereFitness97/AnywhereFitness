@@ -10,6 +10,9 @@ export const REGISTER_FOR_CLASS = "REGISTER_FOR_CLASS";
 export const UNREGISTER = "UNREGISTER";
 export const SET_IS_FETCHING = "SET_IS_FETCHING";
 export const SET_CLASSES = "SET_CLASSES";
+export const SET_USERS = "SET_USERS";
+export const SET_CLIENT_LIST = "SET_CLIENT_LIST";
+export const SET_CLIENT_CLASSES = "SET_CLIENT_CLASSES";
 
 // const pathname = window.location.pathname;
 // export const registerUser = (data) => {
@@ -63,7 +66,7 @@ export const login = (data) => {
       dispatch(isFetchingFalse());
       console.log(response);
       localStorage.setItem("token", response.data.token);
-      window.location.pathname = `/${data.role.toLowerCase()}`;
+      // window.location.pathname = `/${data.role.toLowerCase()}`;
     } catch (err) {
       console.log(err);
     }
@@ -112,4 +115,16 @@ export const unregister = (data) => {
 
 export const setClasses = (data) => {
   return { type: SET_CLASSES, payload: data };
+};
+
+export const setUsers = (data) => {
+  return { type: SET_USERS, payload: data };
+};
+
+export const setClientList = (data) => {
+  return { type: SET_CLIENT_LIST, payload: data };
+};
+
+export const setClientClasses = (data) => {
+  return { type: SET_CLIENT_CLASSES, payload: data };
 };

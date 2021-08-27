@@ -10,12 +10,17 @@ import {
   UNREGISTER,
   SET_IS_FETCHING,
   SET_CLASSES,
+  SET_USERS,
+  SET_CLIENT_LIST,
+  SET_CLIENT_CLASSES,
 } from "../actions/actions.js";
 
 const initialState = {
   isFetching: false,
   users: [],
   classes: [],
+  clientClasses: [],
+  clientList: [],
   currentUser: {
     role: "",
   },
@@ -163,6 +168,21 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         classes: action.payload,
+      };
+    case SET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case SET_CLIENT_LIST:
+      return {
+        ...state,
+        clientList: action.payload,
+      };
+    case SET_CLIENT_CLASSES:
+      return {
+        ...state,
+        clientClasses: action.payload,
       };
     default:
       return state;

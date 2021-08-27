@@ -2,20 +2,31 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import dummyData from "../dummyData";
 import { connect } from "react-redux";
-import { registerClass } from "../actions/actions";
+import { registerClass, setClientList } from "../actions/actions";
+import axios from "axios";
 
 function AvailableClassFocus(props) {
   const { id } = useParams();
-  console.log(id);
   // const card = dummyData.find((card) => card.id === parseInt(id));
-  console.log(props.classes);
   const card = props.classes.find((card) => card.classId === Number(id));
-  console.log(card);
 
   const handleRegister = () => {
-    console.log(card);
-    if (props.currentUser.classes.includes(card)) return;
-    props.registerClass(card);
+    // if (props.currentUser.classes.includes(card)) return;
+    // props.registerClass(card);
+    const registerObject = {
+      class_id: card.classId,
+      usersId: props.currentUser.userID,
+    };
+    axios
+      .post(
+        "https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/",
+        registerObject
+      )
+      .then((res) => {
+        console.log(res);
+        props.setClientList(res.data.FoundClientList);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -46,4 +57,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { registerClass })(AvailableClassFocus);
+export default connect(mapStateToProps, { registerClass, setClientList })(
+  AvailableClassFocus
+);
