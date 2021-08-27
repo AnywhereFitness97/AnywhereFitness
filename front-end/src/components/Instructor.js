@@ -8,7 +8,6 @@ function Instructor(props) {
   useEffect(() => {
     // console.log(data);
     console.log(props);
-    console.log(props.currentUser.classes.length);
   });
 
   // useEffect(() => {
