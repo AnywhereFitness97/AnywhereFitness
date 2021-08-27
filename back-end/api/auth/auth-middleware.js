@@ -25,8 +25,7 @@ const only = (role_name) => (req, res, next) => {
 	}
 };
 const checkUserExists = async (req, res, next) => {
-	const { username } = req.body;
-
+	const { username } = req.body;	
 	const member = await db("userInfo as u").where("u.username", username);
 	const user = member[0];
 	const dataCount = member.length;
@@ -40,7 +39,7 @@ const checkUserExists = async (req, res, next) => {
 	} else {
 		res
 			.status(404)
-			.json({ message: "wrong username/password/role coombination" });
+			.json({ message: "wrong username/password/role combination" });
 	}
 };
 const makeSureTheyAreAClient = (req, res, next) => {
@@ -52,12 +51,13 @@ const makeSureTheyAreAClient = (req, res, next) => {
 			next();
 		} else {
 			res.status(404).json({
-				message: "Wrong credentials must be a client to usse this feature",
+				message: "Wrong credentials must be a client to use this feature",
 			});
 		}
 	};
 	checkRole(trimmed);
 };
+
 const makeSureTheyAreInstructor = (req, res, next) => {
 	const role = req.decodedJwt.Role;
 	const trimmed = role.trim();
@@ -67,7 +67,7 @@ const makeSureTheyAreInstructor = (req, res, next) => {
 			next();
 		} else {
 			res.status(404).json({
-				message: "Wrong credentials must be a Instructor to usse this feature",
+				message: "Wrong credentials must be a Instructor to use this feature",
 			});
 		}
 	};
@@ -97,7 +97,7 @@ const makeSureTheyAreMembers = (req, res, next) => {
 			next();
 		} else {
 			res.status(404).json({
-				message: "Wrong credentials must be a Instructor to usse this feature",
+				message: "Wrong credentials must be a Instructor to use this feature",
 			});
 		}
 	};
@@ -110,5 +110,5 @@ module.exports = {
 	makeSureTheyAreAClient,
 	makeSureTheyAreInstructor,
 	only,
-	makeSureTheyAreMembers,
+	makeSureTheyAreMembers	
 };

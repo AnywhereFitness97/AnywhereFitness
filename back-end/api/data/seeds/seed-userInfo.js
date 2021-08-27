@@ -1,5 +1,8 @@
+const bcryptjs = require("bcryptjs");
+
 exports.seed = function (knex) {
 	// Deletes ALL existing entries
+	const hash = bcryptjs.hashSync('password', 10);
 	return knex("userInfo")
 		.del()
 		.then(function () {
@@ -9,7 +12,7 @@ exports.seed = function (knex) {
 					last_name: "Jackreece",
 					email: "tjackreece@gmail.com",
 					username: "tjackreece",
-					password: "password",
+					password: hash,
 					role: "Instructor",
 				},
 				{
@@ -17,7 +20,7 @@ exports.seed = function (knex) {
 					last_name: "Jackreece",
 					email: "cjackreece@gmail.com",
 					username: "cjackreece",
-					password: "password",
+					password: hash,
 					role: "Instructor",
 				},
 			]);

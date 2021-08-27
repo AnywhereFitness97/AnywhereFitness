@@ -3,6 +3,10 @@ const server = express();
 const userModel = require("./user-model");
 const bcryptjs = require("bcryptjs");
 
+const {	
+	makeSureTheyAreMembers	
+} = require("./user-middleware");
+
 //GET ALL USERS INFO
 server.get("/userinfo", (req, res, next) => {
 	userModel
@@ -49,7 +53,7 @@ server.get("/userinfo/:id", (req, res, next) => {
 		});
 });
 // UPDATE USER
-server.put("/userinfo/:id", (req, res, next) => {
+server.put("/userinfo/:id", makeSureTheyAreMembers, (req, res, next) => {
 	const { id } = req.params;
 	const { first_name, last_name, email, username, password, role } = req.body;
 	const hash = bcryptjs.hashSync(password, 10);
@@ -82,7 +86,7 @@ server.put("/userinfo/:id", (req, res, next) => {
 		});
 });
 // DELETE USER
-server.delete("/userinfo/:id", (req, res, next) => {
+server.delete("/userinfo/:id", makeSureTheyAreMembers, (req, res, next) => {
 	const { id } = req.params;
 	userModel
 		.deleteUserInfo(id)
