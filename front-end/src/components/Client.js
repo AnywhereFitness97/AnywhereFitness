@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dummyData from "../dummyData";
 import AvailableClassCard from "./AvailableClassCard";
 import LocationBarSearch from "./forms/LocationBarSearch";
 import { connect } from "react-redux";
+import { setClasses, getClasses } from "../actions/actions";
+import axios from "axios";
 
 function Client(props) {
+  useEffect(() => {
+    props.getClasses();
+  }, []);
   return (
     <section className="py-4">
       <LocationBarSearch />
@@ -25,4 +30,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Client);
+export default connect(mapStateToProps, { setClasses, getClasses })(Client);

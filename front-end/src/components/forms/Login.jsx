@@ -86,7 +86,12 @@ import { Button, Paper, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../actions/actions";
+import {
+  setCurrentUser,
+  isFetchingTrue,
+  isFetchingFalse,
+  login,
+} from "../../actions/actions";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -94,6 +99,7 @@ const Login = (props) => {
   const initialLogin = {
     username: "",
     password: "",
+    role: "Client",
   };
 
   const initialErrors = {
@@ -126,11 +132,20 @@ const Login = (props) => {
     setLoginErrors(name, value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    props.setCurrentUser(credentials);
-    if (!props.currentUser) return;
-    props.history.push(`/${props.currentUser.role}`);
+    props.login(credentials);
+    // console.log(credentials);
+    // props.setIsFetchingTrue();
+    // const response = await axios.post(
+    //   "https://anywherefitnessapis.herokuapp.com/api/v1/auth/login",
+    //   credentials
+    // );
+    // props.setIsFetchingFalse();
+
+    // props.setCurrentUser(credentials);
+    // if (!props.currentUser) return;
+    // props.history.push(`/${props.currentUser.role}`);
   };
   ////////////
 
@@ -138,6 +153,7 @@ const Login = (props) => {
   const schema = yup.object().shape({
     username: yup.string().required("Please enter username"),
     password: yup.string().required("Please enter password"),
+    role: yup.string().required("Please select a role"),
   });
 
   useEffect(() => {
@@ -205,6 +221,10 @@ const Login = (props) => {
               placeholder="Password"
               style={style}
             />
+            <select name="role" onChange={handleChange}>
+              <option value="Client">Client</option>
+              <option value="Instructor">Instructor</option>
+            </select>
             <Button
               style={style}
               variant="contained"
@@ -237,4 +257,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setCurrentUser })(Login);
+export default connect(mapStateToProps, {
+  setCurrentUser,
+  isFetchingTrue,
+  isFetchingFalse,
+  login,
+})(Login);

@@ -6,8 +6,11 @@ import { registerClass } from "../actions/actions";
 
 function AvailableClassFocus(props) {
   const { id } = useParams();
+  console.log(id);
   // const card = dummyData.find((card) => card.id === parseInt(id));
-  const card = props.classes.find((card) => card.id === id);
+  console.log(props.classes);
+  const card = props.classes.find((card) => card.classId === Number(id));
+  console.log(card);
 
   const handleRegister = () => {
     console.log(card);
