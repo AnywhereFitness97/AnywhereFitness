@@ -13,13 +13,18 @@ function LocationBar(props) {
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latlng = await getLatLng(results[0]);
-    setAddress(value);
+    setAddress(results[0].formatted_address);
     setCoordinates(latlng);
     const locationObj = {
       address: results[0].formatted_address,
       coordinates: coordinates,
     };
-    setFormData({ ...formData, ["class_location"]: locationObj });
+    setFormData({
+      ...formData,
+      ["class_location"]: results[0].formatted_address,
+      ["class_location_lat"]: coordinates.lat,
+      ["class_location_long"]: coordinates.lng,
+    });
   };
 
   useEffect(() => {

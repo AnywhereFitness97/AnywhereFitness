@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import LocationBar from "./LocationBarCreateClass";
 import { connect } from "react-redux";
-import { addNewClass, updateCurrentUser } from "../../actions/actions";
+import {
+  addNewClass,
+  updateCurrentUser,
+  setClasses,
+} from "../../actions/actions";
 import randId from "../../utils/randomIdGen";
 import "../../App.css";
+import axios from "axios";
 import Logo from "../../assets/personal_trainer.svg";
 
 const CreateClass = (props) => {
@@ -75,9 +80,40 @@ const CreateClass = (props) => {
     console.log(props);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (parseInt(formData.class_time) > 12) {
+      formData.class_time =
+        (parseInt(formData.class_time) - 12).toString() +
+        formData.class_time[2] +
+        formData.class_time[3] +
+        formData.class_time[4];
+      formData.class_am_or_pm = "pm";
+    } else {
+      formData.class_am_or_pm = "am";
+    }
+    formData.class_instructor_username = props.currentUser.username;
+    formData.class_cost = 15;
+    formData.class_duration = parseInt(formData.class_duration);
+    // delete formData.class_size;
+    // delete formData.class_location_lat;
+    // delete formData.class_location_long;
+
     console.log(formData);
+    const response = await axios.post(
+      "https://anywherefitnessapis.herokuapp.com/api/v1/class/",
+      formData
+    );
+    console.log(response);
+    axios
+      .get("https://anywherefitnessapis.herokuapp.com/api/v1/class/")
+      .then((res) => {
+        console.log(res);
+        props.setClasses(res.data.allClasses);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // props.addNewClass({
     //   ...formData,
     //   id: randId(),
@@ -85,9 +121,9 @@ const CreateClass = (props) => {
     // });
   };
 
-  useEffect(() => {
-    props.updateCurrentUser();
-  }, [props.users.find((user) => user.id === props.currentUser.id)]);
+  // useEffect(() => {
+  //   props.updateCurrentUser();
+  // }, [props.users.find((user) => user.id === props.currentUser.id)]);
 
   return (
     <section className="py-5">
@@ -143,7 +179,7 @@ const CreateClass = (props) => {
               type="text"
               value={formData.description}
               onChange={onChange}
-              name="description"
+              name="class_description"
             />
           </label>
 
@@ -218,12 +254,12 @@ const CreateClass = (props) => {
 
             <label className="d-flex flex-column third">
               {" "}
-              Class Size:
+              Max Class Size:
               <input
                 type="number"
                 value={formData.class_size}
                 onChange={onChange}
-                name="class_size"
+                name="max_class_size"
               />
             </label>
           </div>
@@ -243,6 +279,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addNewClass, updateCurrentUser })(
-  CreateClass
-);
+export default connect(mapStateToProps, {
+  addNewClass,
+  updateCurrentUser,
+  setClasses,
+})(CreateClass);
