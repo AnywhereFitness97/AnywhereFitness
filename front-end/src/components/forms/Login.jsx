@@ -158,13 +158,14 @@ const Login = (props) => {
     if (props.currentUser == undefined) {
       console.log("no current user");
       return;
-    }
-    if (props.currentUser.role == "Instructor") {
-      props.history.push(`/instructor`);
-    } else if (props.currentUser.role == "Client") {
-      props.history.push(`/client`);
     } else {
-      console.log("no current user");
+      if (props.currentUser.role == "Instructor") {
+        props.history.push(`/instructor`);
+      } else if (props.currentUser.role == "Client") {
+        props.history.push(`/client`);
+      } else {
+        console.log("no current user");
+      }
     }
   }, [props.currentUser]);
   /////////

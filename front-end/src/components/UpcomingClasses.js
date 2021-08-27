@@ -9,8 +9,6 @@ function UpcomingClasses(props) {
     axios
       .get("https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/")
       .then((res) => {
-        console.log(res);
-        console.log();
         const clientList = res.data.allClassLists.filter((cur) => {
           return cur.usersId === props.currentUser.userID;
         });
@@ -21,8 +19,6 @@ function UpcomingClasses(props) {
             ))
         );
         props.setClientClasses(clientList);
-        console.log(clientList);
-        console.log(props);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -31,7 +27,35 @@ function UpcomingClasses(props) {
       {props.clientClasses.map((item) => {
         const handleUnregister = () => {
           console.log("unregister");
-          console.log(item);
+          const id = item.client_list_id;
+          axios
+            .delete(
+              `https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/${id}`
+            )
+            .then((res) => {
+              console.log(res);
+
+              axios
+                .get(
+                  "https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/"
+                )
+                .then((res) => {
+                  const clientList = res.data.allClassLists.filter((cur) => {
+                    return cur.usersId === props.currentUser.userID;
+                  });
+                  clientList.forEach(
+                    (item) =>
+                      (item.class = props.classes.find(
+                        (_class) => _class.classId === item.class_id
+                      ))
+                  );
+                  props.setClientClasses(clientList);
+                })
+                .catch((err) => console.log(err));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           // props.unregister({ id: card.id, instructor_id: card.instructor_id });
         };
         return (

@@ -77,11 +77,12 @@ const CreateClass = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addNewClass({
-      ...formData,
-      id: randId(),
-      instructor_id: props.currentUser.id,
-    });
+    console.log(formData);
+    // props.addNewClass({
+    //   ...formData,
+    //   id: randId(),
+    //   instructor_id: props.currentUser.id,
+    // });
   };
 
   useEffect(() => {
