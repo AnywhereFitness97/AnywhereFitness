@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { connect } from "react-redux";
-import { registerUser, setCurrentUser } from "../../actions/actions";
+import {
+  registerUser,
+  setCurrentUser,
+  isFetchingTrue,
+  isFetchingFalse,
+  login,
+} from "../../actions/actions";
 import Logo from "../../assets/fitness_logo.svg";
+import axios from "axios";
 
 const initialFormValues = {
   first_name: "",
   last_name: "",
   email: "",
-  role: "client",
+  role: "Client",
   username: "",
   password: "",
-  auth_key: "",
 };
 
 const initialFormErrors = {
@@ -20,7 +26,6 @@ const initialFormErrors = {
   email: "",
   username: "",
   password: "",
-  auth_key: "",
 };
 
 const FormSchema = yup.object().shape({
@@ -65,10 +70,22 @@ const Register = (props) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formValues);
-    // props.registerUser(formValues);
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      props.isFetchingTrue();
+      const response = await axios.post(
+        "https://anywherefitnessapis.herokuapp.com/api/v1/auth/register",
+        formValues
+      );
+      console.log(response);
+      props.isFetchingFalse();
+      props.setCurrentUser(response.data.NewUserLogin);
+    } catch (err) {
+      props.isFetchingFalse();
+      console.log(err);
+    }
+
     // props.setCurrentUser(formValues);
     // if (formValues.role === "client") props.history.push("/client");
     // if (formValues.role === "Instructor") props.history.push("/instructor");
@@ -163,4 +180,16 @@ const Register = (props) => {
   );
 };
 
-export default connect(null, { registerUser, setCurrentUser })(Register);
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
+
+export default connect(mapStateToProps, {
+  registerUser,
+  setCurrentUser,
+  isFetchingTrue,
+  isFetchingFalse,
+  login,
+})(Register);

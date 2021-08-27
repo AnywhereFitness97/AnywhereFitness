@@ -5,7 +5,7 @@ export const AvailableClassCard = (props) => {
   const { card } = props;
   const { push } = useHistory();
   const handleClick = (e) => {
-    push(`/client/focus/${card.id}`);
+    push(`/client/focus/${card.classId}`);
   };
   return (
     <div className="card-available-wrap">

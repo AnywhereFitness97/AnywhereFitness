@@ -8,9 +8,12 @@ import {
   DELETE_CLASS,
   REGISTER_FOR_CLASS,
   UNREGISTER,
+  SET_IS_FETCHING,
+  SET_CLASSES,
 } from "../actions/actions.js";
 
 const initialState = {
+  isFetching: false,
   users: [],
   classes: [],
   currentUser: {
@@ -41,11 +44,12 @@ export const reducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: state.users.find(
-          (cur) =>
-            cur.username === action.payload.username &&
-            cur.password === action.payload.password
-        ),
+        currentUser: action.payload,
+        // currentUser: state.users.find(
+        //   (cur) =>
+        //     cur.username === action.payload.username &&
+        //     cur.password === action.payload.password
+        // ),
       };
     case UPDATE_CURRENT_USER:
       return {
@@ -149,6 +153,16 @@ export const reducer = (state = initialState, action) => {
             return user;
           }
         }),
+      };
+    case SET_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.payload,
+      };
+    case SET_CLASSES:
+      return {
+        ...state,
+        classes: action.payload,
       };
     default:
       return state;
