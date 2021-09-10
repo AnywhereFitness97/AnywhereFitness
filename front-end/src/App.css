@@ -1,147 +1,624 @@
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@200&display=swap");
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+	height: 40vmin;
+	pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+.shopping-cart-container {
+	width: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
 }
 
+#cart {
+	width: 2vw;
+}
+#cartCount {
+	border: 1px solid white;
+	border-radius: 50%;
+	margin: 0.2rem auto;
+	width: 2vw;
+	text-align: center;
+	color: red;
+}
+.CheckoutFormNPaycontainer {
+	display: flex;
+}
+.CheckoutForm {
+	width: 50%;
+}
+.CheckoutForm form {
+	width: 100%;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+.checkoutList {
+	width: 50%;
+}
+.checkoutList table {
+	width: 100%;
+	margin: auto;
+}
+.Unregister {
+	text-align: center;
+	color: red;
+	text-decoration: none;
+}
+#name {
+	width: 50%;
+	text-align: center;
+}
+#date {
+	width: 20%;
+	text-align: center;
+}
+#cost {
+	width: 25%;
+	text-align: center;
+}
+.checkout-container {
+	display: flex;
+	flex-direction: column;
+}
+.checkoutList {
+}
+
+.tableInfo {
+	margin: 3rem auto;
+	width: 60%;
+}
+.costNsubmit {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+}
+.costNsubmit h3 {
+	margin: 0;
+}
+.tablInfoContainer {
+}
+.tablInfoRows {
+	border: solid 2px black;
+}
+.qrcodeContainer {
+	/* width: 100vw; */
+	/* height: 100vh; */
+	/* background-color: red; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.attendanceTracker {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.qrcode {
+	width: 25vw;
+}
+.totalCostContainer {
+	margin: 3rem 0;
+}
+.totalCost {
+	color: green;
+}
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 .username-error {
-  color: red;
-  position: absolute;
-  font-size: 10px;
-  transform: translate(-40px, 29px);
+	color: red;
+	position: absolute;
+	font-size: 10px;
+	transform: translate(-40px, 29px);
 }
 
 .password-error {
-  color: red;
-  position: absolute;
-  font-size: 10px;
-  transform: translate(-40px, 83px);
+	color: red;
+	position: absolute;
+	font-size: 10px;
+	transform: translate(-40px, 83px);
 }
 
 .register-logo {
-  width: 60%;
+	width: 60%;
 }
 
 .register-form {
-  width: 100%;
+	width: 100%;
 }
 
 .register-form input,
 .register-form select {
-  width: 250px;
-  height: 30px;
-  margin-bottom: 15px;
+	width: 250px;
+	height: 30px;
+	margin-bottom: 15px;
 }
 
 .register-error {
-  color: red;
-  font-size: 10px;
-  transform: translateY(-15px);
+	color: red;
+	font-size: 10px;
+	transform: translateY(-15px);
 }
 
 .card-available-wrap {
-  width: 20%;
+	width: 22.3%;
+	height: 100%;
+	margin: 1rem;
+	display: flex;
+	justify-content: center;
 }
 
 .card-available-img-wrap {
-  aspect-ratio: 0.9;
-  overflow: hidden;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 .card-available-img {
-  width: 100%;
+	width: 100%;
+	height: 25vh;
 }
 
 .card-available {
-  transition: opacity 0.2s, background-color 0.2s;
+	/* transition: opacity 0.5s, background-color 0.2s; */
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	margin: 1rem;
 }
 
 .card-available:hover {
-  background-color: rgb(243, 243, 243);
-  opacity: 0.8;
-  cursor: pointer;
+	background-color: blue;
+	opacity: 0.8;
+	cursor: pointer;
+	color: white;
 }
 
+.card-info {
+	box-shadow: 2px 2px 0.3em black;
+
+	width: 100%;
+	height: 100%;
+}
+.card-name-container {
+	display: flex;
+	justify-content: space-between;
+	align-content: baseline;
+}
+
+.card-name-container h2 {
+	font-size: 1.3rem;
+	margin: 0;
+}
+.card-intensity-date-container {
+	display: flex;
+	justify-content: space-between;
+}
+.card-intensity {
+	width: 60%;
+}
+.card-intensity p {
+	font-size: 0.95rem;
+	margin: 0.2rem 2rem 0.2rem 0;
+}
+.card-date {
+	width: 35%;
+}
+.card-date p {
+	margin: 0 0 0.2rem 0;
+	font-size: 0.8rem;
+	height: 50%;
+}
+.card-time-duration-type-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+.card-time {
+}
+.card-time p {
+	font-size: 0.9rem;
+}
+.card-duration {
+}
+.card-duration p {
+	font-size: 0.9rem;
+}
+.card-type {
+}
+.card-type p {
+	font-size: 0.9rem;
+}
+
+.card-info h2 {
+	font-size: 1.2rem;
+	margin: 0.2rem 0 0.1rem 0;
+}
+.card-info p {
+	line-height: 1;
+	font-size: 0.9rem;
+}
 .inst-card-img-width {
-  width: 200px;
+	width: 200px;
 }
 
+.locatinBar {
+	margin-bottom: 2rem;
+}
+
+.classDetaillButtonsContainer {
+	display: flex;
+
+	height: 100%;
+	width: 50%;
+}
+.classContainer {
+	display: flex;
+	justify-content: left;
+	/* margin: auto 1px; */
+	height: 100px;
+	width: 100%;
+}
+/* NAV UL LI */
+.Sorter {
+	/* position: relative; */
+	/* padding: 20px; */
+	width: 151px;
+	margin-right: 20px;
+	height: 29%;
+	border-left: black solid 2px;
+	/* border-right: black solid 2px; */
+}
+.Sorter:hover .dropDown-container {
+	display: block;
+}
+
+.arrow {
+	background-color: white;
+
+	color: black;
+}
+/* NAV UL LI A */
+.mainSorter {
+	/* background-color: black; */
+	color: black;
+	font-size: 1.2rem;
+	text-decoration: none;
+	/* border: #61dafb solid 3px; */
+	padding-left: 5px;
+}
+
+/* NAV UL LI UL */
+.dropDown-container {
+	display: none;
+	position: absolute;
+	background-color: blue;
+	/* width: 100%; */
+	text-align: center;
+}
+
+/* NAV UL LI UL LI */
+.dropdown-listItems {
+	width: 100%;
+	text-align: left;
+	border: #f4f6f4 1px solid;
+	padding: 6px;
+	border-radius: 1px;
+}
+/* NAV UL LI UL LI A */
+.subLinks {
+	z-index: 5;
+	color: black;
+	width: 100%;
+	display: block;
+	padding: 5px;
+	text-align: left;
+	text-decoration: none;
+	border-bottom: 1px solid gray;
+}
+.subLinks:visited {
+	color: black;
+	width: 100%;
+	text-decoration: none;
+}
+/* NAV UL LI UL LI A:hover */
+.subLinks:hover {
+	background-color: grey;
+}
+/* NAV UL LI UL LI A */
+.input-group-item {
+	width: 100%;
+}
+/* NAV UL LI UL LI A Input*/
+.inputsForSorter {
+	z-index: 5;
+}
+/* NAV UL LI UL LI A */
+.btn btn-primary searchBtn {
+}
+
+.card-container {
+	/* background-color: violet; */
+	display: flex;
+
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.FoundError {
+	display: flex;
+	flex-direction: column;
+	margin: 2rem auto;
+	text-align: center;
+}
+.FoundSuccess {
+	display: flex;
+	flex-direction: column;
+	margin: 2rem auto;
+	text-align: center;
+}
+
+.focusCard_Container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 2rem auto;
+}
+.focusCardImage_Container {
+}
+.focusCardImage_Container img {
+	width: 25vw;
+	height: 50vh;
+}
+.classname {
+	text-align: center;
+}
+.class_type {
+	margin-left: 0.5rem;
+
+	font-size: 1.3rem;
+}
+.class_intensity {
+	font-size: 1.3rem;
+
+	margin-right: 0.5rem;
+}
+.ClassInfo_date_time {
+	display: flex;
+	justify-content: space-between;
+}
+.class_date {
+	font-size: 1.1rem;
+
+	margin-left: 1.1rem;
+}
+.class_time {
+	font-size: 1.1rem;
+	margin-right: 2.5rem;
+}
+.ClassInfo_duration_cost {
+	display: flex;
+	justify-content: space-between;
+}
+.class_duration {
+	font-size: 1.1rem;
+
+	margin-left: 0.5rem;
+}
+.class_cost {
+	margin-right: 4rem;
+	font-size: 1.1rem;
+}
+.btnDiv {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+.btn btn-primary register {
+}
+.infoData {
+}
+
+.FocusCard_ClassInfo {
+	height: 100%;
+	margin: auto;
+
+	width: 25vw;
+}
+.ClassInfo_type_inten {
+	display: flex;
+	justify-content: space-between;
+}
+.home_container {
+	display: flex;
+	flex-direction: column;
+}
+.home_banner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 70vh;
+	background-size: 95% 100%;
+	background-repeat: no-repeat;
+	background-position-x: center;
+	background-position-y: center;
+	background-image: url(./components/componentsIMGFiles/outsideFitness.jpg);
+}
+.home_title_container {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.home_title {
+	color: aliceblue;
+	font-size: 3rem;
+	text-shadow: 5px 3px 3px blue;
+	font-family: "Luckiest Guy", cursive;
+}
+.banner_Register_link {
+	font-size: 1.3rem;
+	color: blue;
+	text-decoration: none;
+	border: 2px solid blue;
+	box-shadow: 0 0 0.7em white;
+	padding: 5px 10px;
+	background-color: aliceblue;
+	border-radius: 10px;
+}
+.banner_Register_link:hover {
+	color: aliceblue;
+	background-color: blue;
+	text-shadow: 3px 3px 3px white;
+}
+.home_options_container {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin-top: 1.3rem;
+}
+.home_option_1 {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.home_option_img_1 {
+	border-radius: 10px;
+}
+.home_option_title_1 {
+	margin: 1rem 0 0 1rem;
+	color: blue;
+	text-shadow: 3px 3px 3px lightgray;
+	font-family: "Luckiest Guy", cursive;
+}
+.home_option_description_1 {
+	margin: 0.5rem 1rem;
+	font-family: "Alumni Sans", sans-serif;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+.home_option_2 {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.home_option_img_2 {
+	border-radius: 10px;
+}
+.home_option_title_2 {
+	margin: 1rem 0 0 1rem;
+	color: blue;
+	text-shadow: 3px 3px 3px lightgray;
+	font-family: "Luckiest Guy", cursive;
+}
+.home_option_description_2 {
+	margin: 0.5rem 1rem;
+	font-family: "Alumni Sans", sans-serif;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+.home_option_3 {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.home_option_img_3 {
+	height: 43.5vh;
+	border-radius: 10px;
+}
+.home_option_title_3 {
+	margin: 1rem 0 0 1rem;
+	color: blue;
+	text-shadow: 3px 3px 3px lightgray;
+	font-family: "Luckiest Guy", cursive;
+}
+.home_option_description_3 {
+	margin: 0.5rem 1rem 0rem 1rem;
+	font-family: "Alumni Sans", sans-serif;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
 @media only screen and (max-width: 1200px) {
-  .card-available-wrap {
-    width: 25%;
-  }
+	.card-available-wrap {
+		width: 25%;
+	}
 }
 
 @media only screen and (max-width: 992px) {
-  .card-available-wrap {
-    width: 33.333%;
-  }
+	.card-available-wrap {
+		width: 33.333%;
+	}
 }
 
 @media only screen and (max-width: 767px) {
-  .card-available-wrap {
-    width: 50%;
-  }
+	.card-available-wrap {
+		width: 50%;
+	}
 }
 
 @media only screen and (max-width: 500px) {
-  .card-available-wrap {
-    width: 100%;
-  }
+	.card-available-wrap {
+		width: 100%;
+	}
 }
 
 .class-form {
-  width: 100%;
-  max-width: 500px;
+	width: 100%;
+	max-width: 500px;
 
-  /* background-color: red; */
+	/* background-color: red; */
 }
 .class-form-logo {
-  width: 45%;
+	width: 45%;
 }
 
 .class-form input,
 .class-form select {
-  height: 30px;
-  margin-bottom: 15px;
+	height: 30px;
+	margin-bottom: 15px;
 }
 
 .third {
-  width: 30%;
+	width: 30%;
 }
 
 .half {
-  width: 47.5%;
+	width: 47.5%;
 }
