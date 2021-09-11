@@ -9,7 +9,6 @@ function Header(props) {
 	const pathname = useLocation().pathname;
 
 	const handleLogout = () => {
-		console.log("logout");
 		localStorage.removeItem("token");
 		props.setCurrentUser({ username: null, password: null });
 	};

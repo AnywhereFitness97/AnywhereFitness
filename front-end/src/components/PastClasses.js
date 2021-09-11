@@ -22,7 +22,6 @@ const PastClasses = (props) => {
 		setChooseChoice(false);
 	};
 	const handleNo = (e) => {
-		console.log("No");
 		setChooseChoice(false);
 	};
 	const handleUnregister = (classId, userID) => {
@@ -33,7 +32,6 @@ const PastClasses = (props) => {
 				userInfo
 			)
 			.then((res) => {
-				console.log(res.data.List);
 				const classesRegistered = res.data.List;
 				classesRegistered.forEach((item) => {
 					const foundClassID = item.class_id.toString();

@@ -22,7 +22,6 @@ const QRCodeMaker = (props) => {
 
 	const ClientName = `${props.currentUser.first_name} ${props.currentUser.last_name}`;
 
-	console.log(props);
 	const infoToSend = {
 		class_id: classNumber,
 		usersId: props.currentUser.userID,
@@ -30,13 +29,10 @@ const QRCodeMaker = (props) => {
 	};
 	const UpdateClientList = () => {
 		setAttendanceVerified(true);
-		console.log("made it here");
 		axios
 			.get("https://anywherefitnessapis.herokuapp.com/api/v1/clientlist/")
 			.then((response) => {
 				const AllClientLists = response.data.allClassLists;
-				console.log("made it here 2");
-				console.log(AllClientLists);
 
 				AllClientLists.filter((item) => {
 					const ClientlistId = item.client_list_id;
@@ -46,8 +42,6 @@ const QRCodeMaker = (props) => {
 						itemClassID === infoToSend.class_id &&
 						itemUserID === infoToSend.usersId
 					) {
-						console.log("made it here 3");
-
 						axios
 							.put(
 								`https://anywherefitnessapis.herokuapp.com/api/v1/clientList/${ClientlistId}`,

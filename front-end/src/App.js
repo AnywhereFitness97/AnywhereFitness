@@ -17,6 +17,7 @@ import PastClasses from "./components/PastClasses";
 import Checkout from "./components/Checkout";
 import StripeContainer from "./components/StripeContainer";
 import Home from "./components/Home";
+// changes
 
 function App(props) {
 	const { setUsers } = props;
