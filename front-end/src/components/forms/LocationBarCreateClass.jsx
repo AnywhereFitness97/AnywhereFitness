@@ -18,8 +18,6 @@ function LocationBar(props) {
 		//   address: results[0].formatted_address,
 		//   coordinates: coordinates,
 		// };
-		console.log("results", results);
-		console.log(results);
 		setFormData({
 			...formData,
 			class_location: results[0].formatted_address,

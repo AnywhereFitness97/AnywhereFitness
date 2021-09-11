@@ -72,7 +72,6 @@ const CreateClass = (props) => {
 		location: yup.string().max(100, "Shorten your message to 100 chars"),
 		class_size: yup.number(),
 	});
-	console.log(formSchema);
 
 	const onChange = (e) => {
 		let valueToUse = e.target.value;
@@ -81,7 +80,6 @@ const CreateClass = (props) => {
 		}
 		setFormData({ ...formData, [e.target.name]: valueToUse });
 	};
-	console.log("props", props);
 	const formatTime = (time) => {
 		const splitTime = time.split(":");
 		const hours = Number(splitTime[0]);
@@ -110,8 +108,6 @@ const CreateClass = (props) => {
 		formData.class_instructor_username = props.currentUser.username;
 		formData.class_duration = parseInt(formData.class_duration);
 
-		console.log(formData.class_duration);
-
 		const formToSend = await {
 			class_name: formData.class_name,
 			class_time: await newTime,
@@ -127,17 +123,14 @@ const CreateClass = (props) => {
 			class_address: await address,
 			max_class_size: Number(formData.max_class_size),
 		};
-		console.log(formToSend);
 
 		const response = await axios.post(
 			"https://anywherefitnessapis.herokuapp.com/api/v1/class/",
 			formToSend
 		);
-		console.log("res", response);
 		axios
 			.get("https://anywherefitnessapis.herokuapp.com/api/v1/class/")
 			.then((res) => {
-				console.log(res);
 				props.setClasses(res.data.allClasses);
 			})
 			.catch((err) => {

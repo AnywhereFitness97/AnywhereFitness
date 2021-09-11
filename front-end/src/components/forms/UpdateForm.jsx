@@ -34,8 +34,6 @@ const FormSchema = yup.object().shape({
 
 const UpdateForm = (props) => {
 	const id = props.match.params.id;
-	console.log(id);
-	console.log(props.classes);
 	const initialFormData = props.classes.find(
 		(card) => card.classId === parseInt(id)
 	);
@@ -48,8 +46,6 @@ const UpdateForm = (props) => {
 		//   initialFormData.class_time[3].toString();
 		// initialFormData.class_time = newTime;
 	}
-
-	console.log(initialFormData);
 
 	const [formData, setFormData] = useState({
 		...initialFormData,
@@ -96,8 +92,6 @@ const UpdateForm = (props) => {
 		delete formData.class_client_list_id;
 		delete formData.max_class_size;
 
-		console.log(formData);
-
 		axios
 			.put(
 				`https://anywherefitnessapis.herokuapp.com/api/v1/class/${id}`,
@@ -105,30 +99,10 @@ const UpdateForm = (props) => {
 			)
 			.then((res) => {
 				props.getClasses();
-				console.log(res);
 			})
 			.catch((err) => console.log(err));
-		// const response = await axios.post(
-		//   "https://anywherefitnessapis.herokuapp.com/api/v1/class/",
-		//   formData
-		// );
-		// console.log(response);
-		// axios
-		//   .get("https://anywherefitnessapis.herokuapp.com/api/v1/class/")
-		//   .then((res) => {
-		//     console.log(res);
-		//     props.setClasses(res.data.allClasses);
-		//   })
-		//   .catch((err) => {
-		//     console.log(err);
-		//   });
 	};
-	// useEffect(() => {
-	//   console.log(initialFormData);
-	// });
-	useEffect(() => {
-		console.log("classes changed");
-	}, [props.classes]);
+	useEffect(() => {}, [props.classes]);
 	return (
 		<section className="py-5">
 			<div className="container d-flex flex-lg-row flex-column justify-content-between align-items-center">

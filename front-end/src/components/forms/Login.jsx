@@ -88,7 +88,6 @@ const Login = (props) => {
 
 	useEffect(() => {
 		if (props.currentUser === undefined) {
-			console.log("no current user");
 			return;
 		} else {
 			if (props.currentUser.role === "Instructor") {
@@ -96,7 +95,6 @@ const Login = (props) => {
 			} else if (props.currentUser.role === "Client") {
 				props.history.push(`/client`);
 			} else {
-				console.log("no current user");
 			}
 		}
 	}, [props.currentUser]);

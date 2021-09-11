@@ -17,7 +17,7 @@ function UpcomingClasses(props) {
 		setChooseChoice(false);
 	};
 	const handleNo = (e) => {
-		console.log("No");
+		("No");
 		setChooseChoice(false);
 	};
 	const handleFindClientList = (classsId, userId) => {};
@@ -29,7 +29,6 @@ function UpcomingClasses(props) {
 				userInfo
 			)
 			.then((res) => {
-				console.log(res.data.List);
 				const classesRegistered = res.data.List;
 				classesRegistered.forEach((item) => {
 					const foundClassID = item.class_id.toString();
@@ -166,3 +165,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { unregister, setClientClasses })(
 	UpcomingClasses
 );
+// changes
